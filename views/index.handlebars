@@ -3,16 +3,36 @@
 
 	<div class="flex row gap wrap justify align container catalog-display">
 
-		{{#each shoes}}
+		{{#each shoe_data}}
 		<div class="flex col gap container shoe-card">
 			<div class="container shoe-img">
-				<img src="{{photo}}" alt="{{color}} {{brand}} {{name}} {{type}}">
+				{{#each photos}}
+				<img id="{{color}}-{{brand}}-{{model}}" class="{{#if @index}}hidden{{/if}}" src="{{photo_url}}"
+					alt="{{../brand}}">
+				{{/each}}
+				<div class="shoe-price">R{{price}}</div>
 			</div>
 			<div class="flex col gap container shoe-details">
-				<div>R{{price}}</div>
-				<div><b>{{brand}} {{name}}</b></div>
-				<div>Color: {{color}}</div>
-				<div>Size: {{size}}</div>
+				<div><b>{{brand}}</b> {{model}}</div>
+
+				<div class="flex row gap shoe-options">
+					<label for="shoe-color">Color
+						<select name="shoe-color" id="shoe-color">
+							{{#each colors}}
+							<option value="{{this}}">{{this}}</option>
+							{{/each}}
+						</select>
+					</label>
+
+					<label for="shoe-size">Size
+						<select name="shoe-size" id="shoe-size">
+							{{#each sizes}}
+							<option value="{{this}}">{{this}}</option>
+							{{/each}}
+						</select>
+					</label>
+				</div>
+
 			</div>
 		</div>
 		{{/each}}
