@@ -1,0 +1,11 @@
+<div class="flex col gap justify align view container">
+	<h1>{{title}}</h1>
+
+	{{#with shoe_data}}
+	<form class="flex row gap justify align container shoe-display" action="/cart/add/{{shoe_id}}" method="post">
+		{{#each photos}}
+		<img id="{{color}}" class="{{#if @index}}hidden{{/if}} shoe-img" src="{{photo_url}}" alt="{{../brand}}">
+		{{/each}}
+	</form>
+	{{/with}}
+</div>

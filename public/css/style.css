@@ -39,7 +39,9 @@
 	font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
-* {
+*,
+*:before,
+*:after {
 	outline: none;
 	border: none;
 
@@ -71,8 +73,38 @@ body {
 	overflow: auto;
 }
 
-h1 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	user-select: none;
+	font-weight: normal;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+h2 {
+	font-size: 3em;
+}
+
+h3 {
+	font-size: 2.5em;
+}
+
+h4 {
+	font-size: 2em;
+}
+
+h5 {
+	font-size: 1.5em;
+}
+
+h6 {
+	font-size: 1.25em;
 }
 
 img {
@@ -80,12 +112,22 @@ img {
 	height: auto;
 }
 
-select {
+input {
+	background: white;
+	border: 1px solid;
+
+	padding: 0.25rem 0.5rem;
+}
+
+button {
 	background: none;
 	border: 1px solid;
-	border-radius: 0.25rem;
 
-	padding: 0 0.25rem;
+	padding: 0.25rem 0.5rem;
+}
+
+button * {
+	text-align: justify;
 }
 
 .view {
@@ -117,8 +159,24 @@ select {
 	flex-wrap: wrap;
 }
 
+.flex.huge-gap {
+	gap: 2em;
+}
+
+.flex.big-gap {
+	gap: 1em;
+}
+
 .flex.gap {
-	gap: 0.5rem;
+	gap: 0.5em;
+}
+
+.flex.small-gap {
+	gap: 0.25em;
+}
+
+.flex.tiny-gap {
+	gap: 0.125em;
 }
 
 .flex.justify {
@@ -158,25 +216,65 @@ select {
 
 /* ========== SHOE CATALOG ========== */
 
+#search {
+	border-radius: 0.5rem;
+	max-width: 2.5rem;
+	height: 2.5rem;
+	text-align: center;
+
+	transition: max-width 500ms;
+}
+
+#search:focus {
+	border-radius: 0.5rem;
+	max-width: 20rem;
+}
+
+#search::placeholder {
+	font-size: 1.25rem;
+}
+
+#search:focus::placeholder {
+	color: transparent;
+}
+
 .shoe-card {
 	background: #fffa;
-
-	border: 1px solid black;
+	border: 1px solid;
+	border-color: var(--primary-fg);
 	border-radius: 1rem;
 
 	width: 18rem;
 }
 
-.shoe-img {
+.shoe-card:hover {
+	background: var(--secondary-bg);
+	border-color: var(--secondary-fg);
+}
+
+.shoe-card>* {
+	border-radius: 0.75rem;
+}
+
+.shoe-card>*>* {
+	border-radius: 0.5rem;
+}
+
+.shoe-card>*>*>*,
+.shoe-card>*>*>*>*,
+.shoe-card>*>*>*>*>* {
+	border-radius: 0.25rem;
+}
+
+.shoe-images {
 	background: #fff;
 	border: 1px solid;
-	border-radius: 0.75rem;
 
 	position: relative;
 	overflow: hidden;
 }
 
-.shoe-img img {
+.shoe-img {
 	width: 100%;
 	height: auto;
 
@@ -193,6 +291,17 @@ select {
 	position: absolute;
 	top: 0.5em;
 	right: 0.5em;
+}
+
+.shoe-color,
+.shoe-size {
+	border: 1px solid;
+	padding: 0.125rem 0.25rem;
+}
+
+.shoe-color:hover {
+	background: var(--hover-bg);
+	border-color: var(--hover-fg);
 }
 
 /********** MESSAGES **********/

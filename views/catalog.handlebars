@@ -1,0 +1,47 @@
+<div class="flex col gap justify align view container">
+	<h1>{{title}}</h1>
+
+	<label for="search">
+		<span>Search</span>
+		<input type="text" name="search" id="search" placeholder="🔎" autocomplete="off">
+		<span class="invisible">Search</span>
+	</label>
+
+	<form class="flex row big-gap wrap justify align container catalog-display" method="post">
+		{{#each shoe_data}}
+		<button id="{{brand}}-{{#each colors}}{{/each}}-{{model}}" class="flex col gap container shoe-card" type="submit" formaction="/shoe/{{shoe_id}}">
+
+			<div class="container shoe-images">
+				{{#each photos}}
+				<img id="{{color}}" class="{{#if @index}}hidden{{/if}} shoe-img" src="{{photo_url}}" alt="{{../brand}}">
+				{{/each}}
+				<div class="shoe-price">R{{price}}</div>
+			</div>
+
+			<div class="flex col gap container shoe-details">
+				<div><b>{{brand}}</b> {{model}}</div>
+
+				<div class="flex row tiny-gap wrap align shoe-colors">
+					<span>Colors:</span>
+					{{#each colors}}
+					<span id="{{this}}" class="shoe-color">{{this}}</span>
+					{{/each}}
+				</div>
+
+				<div class="flex row tiny-gap wrap align shoe-sizes">
+					<span>Sizes:</span>
+					{{#each sizes}}
+					<span class="shoe-size">{{this}}</span>
+					{{/each}}
+				</div>
+
+				{{!--
+				<button type="submit">Add To Cart</button>
+				--}}
+			</div>
+
+		</button>
+		{{/each}}
+	</form>
+
+</div>
