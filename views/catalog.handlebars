@@ -9,7 +9,8 @@
 
 	<form class="flex row big-gap wrap justify align container catalog-display" method="post">
 		{{#each shoe_data}}
-		<button id="{{brand}}-{{#each colors}}{{/each}}-{{model}}" class="flex col gap container shoe-card" type="submit" formaction="/shoe/{{shoe_id}}">
+		<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}" class="flex col gap container shoe-card"
+			type="submit" formaction="/shoe/{{shoe_id}}">
 
 			<div class="container shoe-images">
 				{{#each photos}}

@@ -222,7 +222,7 @@ button * {
 	height: 2.5rem;
 	text-align: center;
 
-	transition: max-width 500ms;
+	transition: all 500ms;
 }
 
 #search:focus {
