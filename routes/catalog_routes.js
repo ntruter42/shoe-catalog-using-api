@@ -35,7 +35,8 @@ router.get('/', async (req, res) => {
 
 	res.render('catalog', {
 		title: "Shoe Catalog",
-		shoe_data
+		shoe_data,
+		variants: shoes.variants
 	});
 });
 

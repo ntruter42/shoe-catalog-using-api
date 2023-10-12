@@ -9,12 +9,12 @@
 
 	<form class="flex row big-gap wrap justify align container catalog-display" method="post">
 		{{#each shoe_data}}
-		<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}" class="flex col gap container shoe-card"
-			type="submit" formaction="/shoe/{{shoe_id}}">
+		<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
+			class="flex col gap container shoe-card" type="submit" formaction="/shoe/{{shoe_id}}">
 
 			<div class="container shoe-images">
 				{{#each photos}}
-				<img id="{{color}}" class="{{#if @index}}hidden{{/if}} shoe-img" src="{{photo_url}}" alt="{{../brand}}">
+				<img id="{{color}}" class="hidden shoe-img" src="{{photo_url}}" alt="{{../brand}}">
 				{{/each}}
 				<div class="shoe-price">R{{price}}</div>
 			</div>
@@ -25,6 +25,8 @@
 				<div class="flex row tiny-gap wrap align shoe-colors">
 					<span>Colors:</span>
 					{{#each colors}}
+					{{!-- <button id="{{this}}" class="shoe-color" type="submit"
+						formaction="/shoe/{{shoe_id}}?color={{this}}">{{this}}</button> --}}
 					<span id="{{this}}" class="shoe-color">{{this}}</span>
 					{{/each}}
 				</div>
@@ -32,7 +34,7 @@
 				<div class="flex row tiny-gap wrap align shoe-sizes">
 					<span>Sizes:</span>
 					{{#each sizes}}
-					<span class="shoe-size">{{this}}</span>
+					<span id="{{this}}" class="shoe-size">{{this}}</span>
 					{{/each}}
 				</div>
 

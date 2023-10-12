@@ -14,26 +14,23 @@
 	--accent-1: #0ff;
 	--accent-2: #f0f;
 
-	--error-bg: #fff;
-	--warning-bg: #fff;
-	--success-bg: #fff;
-	--info-bg: #fff;
-
-	/* --error-bg: #fdd; */
+	--error-bg: #fdd;
 	--error-fg: #c04;
-	/* --warning-bg: #fed; */
+	--warning-bg: #fed;
 	--warning-fg: #a60;
-	/* --success-bg: #efe; */
+	--success-bg: #efe;
 	--success-fg: #284;
-	/* --info-bg: #def; */
+	--info-bg: #def;
 	--info-fg: #48c;
 
-	--form-border: 0.125rem;
-	--input-border: 0.125rem;
+	--form-border: 0.125em;
+	--input-border: 0.125em;
 	--message-border: 0.125em;
-	--task-border: 0.125rem;
+	--card-border: 0.125em;
 
-	--transition-time: 4s;
+	--fast-transition: 250ms;
+	--pace-transition: 500ms;
+	--slow-transition: 1s;
 
 	font-size: 16px;
 	font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -116,14 +113,14 @@ input {
 	background: white;
 	border: 1px solid;
 
-	padding: 0.25rem 0.5rem;
+	padding: 0.25em 0.5em;
 }
 
 button {
 	background: none;
 	border: 1px solid;
 
-	padding: 0.25rem 0.5rem;
+	/* padding: 0.25em 0.5em; */
 }
 
 button * {
@@ -132,11 +129,11 @@ button * {
 
 .view {
 	width: 100%;
-	/* height: calc(100% - 2rem); */
+	/* height: calc(100% - 2em); */
 }
 
 .container {
-	padding: 0.5rem;
+	padding: 0.5em;
 }
 
 .wrapper {
@@ -217,21 +214,21 @@ button * {
 /* ========== SHOE CATALOG ========== */
 
 #search {
-	border-radius: 0.5rem;
-	max-width: 2.5rem;
-	height: 2.5rem;
+	border-radius: 0.5em;
+	max-width: 2.5em;
+	height: 2.5em;
 	text-align: center;
 
-	transition: all 500ms;
+	transition: all var(--pace-transition);
 }
 
 #search:focus {
-	border-radius: 0.5rem;
-	max-width: 20rem;
+	border-radius: 0.5em;
+	max-width: 20em;
 }
 
 #search::placeholder {
-	font-size: 1.25rem;
+	font-size: 1.25em;
 }
 
 #search:focus::placeholder {
@@ -242,28 +239,29 @@ button * {
 	background: #fffa;
 	border: 1px solid;
 	border-color: var(--primary-fg);
-	border-radius: 1rem;
+	border-radius: 1em;
 
-	width: 18rem;
+	width: 18em;
 }
 
 .shoe-card:hover {
 	background: var(--secondary-bg);
 	border-color: var(--secondary-fg);
+	cursor: pointer;
 }
 
 .shoe-card>* {
-	border-radius: 0.75rem;
+	border-radius: 0.75em;
 }
 
 .shoe-card>*>* {
-	border-radius: 0.5rem;
+	border-radius: 0.5em;
 }
 
 .shoe-card>*>*>*,
 .shoe-card>*>*>*>*,
 .shoe-card>*>*>*>*>* {
-	border-radius: 0.25rem;
+	border-radius: 0.25em;
 }
 
 .shoe-images {
@@ -285,8 +283,22 @@ button * {
 	filter: contrast(1.25);
 }
 
+.shoe-details {
+	/* max-height: 2em; */
+
+	overflow: hidden;
+	transition: max-height var(--pace-transition);
+	transition-delay: 500ms;
+}
+
+.shoe-card:hover .shoe-details {
+	/* max-height: 20em; */
+
+	transition-delay: 0ms;
+}
+
 .shoe-price {
-	font-size: 1.5rem;
+	font-size: 1.5em;
 
 	position: absolute;
 	top: 0.5em;
@@ -296,12 +308,11 @@ button * {
 .shoe-color,
 .shoe-size {
 	border: 1px solid;
-	padding: 0.125rem 0.25rem;
+	padding: 0.125em 0.25em;
 }
 
-.shoe-color:hover {
-	background: var(--hover-bg);
-	border-color: var(--hover-fg);
+.shoe-card:hover .highlight {
+	background: var(--primary-bg);
 }
 
 /********** MESSAGES **********/
@@ -310,12 +321,12 @@ button * {
 	background: var(--secondary-bg);
 	color: var(--secondary-fg);
 	border: var(--message-border) solid var(--secondary-fg);
-	border-radius: 0.5rem;
+	border-radius: 0.5em;
 
 	height: fit-content;
 	width: fit-content;
 	max-width: 100%;
-	padding: 0.5rem 1rem;
+	padding: 0.5em 1em;
 
 	overflow: hidden;
 }
@@ -393,6 +404,10 @@ button * {
 }
 
 /********** FUNCTIONALITY **********/
+
+.highlight {
+	background: var(--secondary-bg);
+}
 
 .invisible {
 	opacity: 0;

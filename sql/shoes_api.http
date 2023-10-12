@@ -1,0 +1,61 @@
+### Shoes API
+
+### Get shoe catalog
+GET http://localhost:3003/api/shoes
+
+### Get shoe by id
+
+GET http://localhost:3003/api/shoes/id/1000
+
+
+### Filter shoes by brand
+
+GET http://localhost:3003/api/shoes/brand/Nike
+###
+GET http://localhost:3003/api/shoes?brand=Nike
+
+
+### Filter shoes by size
+
+GET http://localhost:3003/api/shoes/size/9
+###
+GET http://localhost:3003/api/shoes?size=9
+
+
+### Filter shoes by brand and size
+
+GET http://localhost:3003/api/shoes/brand/Nike/size/9
+###
+GET http://localhost:3003/api/shoes?brand=Nike&size=9
+
+
+### Combine multiple filters in any order
+
+GET http://localhost:3003/api/shoes?brand=Nike&size=9&color=Black
+###
+GET http://localhost:3003/api/shoes?color=White&brand=Adidas&size=10
+###
+GET http://localhost:3003/api/shoes?size=9&color=Black&brand=Under Armour&model=Micro G Valsetz
+
+
+### Add shoe to catalog
+
+POST http://localhost:3003/api/shoes
+content-type: application/json
+
+{
+	"brand": "Under Armour",
+	"model": "Micro G Valsetz",
+	"price": 2899,
+	"variants": [
+		{ "color": "Black", "size": 9, "stock_count": 16 },
+		{ "color": "Black", "size": 10, "stock_count": 2 },
+		{ "color": "Black", "size": 11, "stock_count": 1 },
+		{ "color": "Gold", "size": 9, "stock_count": 1 },
+		{ "color": "Gold", "size": 10, "stock_count": 1 }
+	],
+	"photos": [
+		{ "color": "Black", "photo_url": "https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp" },
+		{ "color": "Gold", "photo_url": "https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp" }
+	]
+}
