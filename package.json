@@ -1,5 +1,5 @@
 {
-  "name": "shoe-catalog",
+  "name": "shoe-catalog-using-api",
   "version": "1.0.0",
   "description": "Shoe Catalog with API",
   "main": "index.js",

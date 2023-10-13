@@ -4,7 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Shoe Catalog</title>
+	<title>{{page}} | Ready SA - Official Website</title>
+	<link rel="shortcut icon" href="/assets/logo/logo-color-fill.png" type="image/x-icon">
 
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/style.css">
@@ -13,7 +14,31 @@
 	<script src="/scripts/catalog_search.js" defer></script>
 </head>
 
-<body>
+<body class="flex col align">
+	<nav class="flex row between">
+		<div class="flex start align big-padding nav-search">
+			<label for="search">
+				<input type="text" name="search" id="search" placeholder="🔎" autocomplete="off">
+				<span>Search</span>
+			</label>
+		</div>
+
+		<div class="flex justify padding relative nav-brand" href="/">
+			<a class="flex align relative" href="/">
+				<img src="/assets/logo/logo-color-fill.png" alt="Ready">
+				<span>Ready</span>
+			</a>
+		</div>
+
+		<div class="flex end gap align padding nav-menu">
+			<a href="/cart">
+				<img src="/assets/icons/cart-svgrepo-com.svg" alt="">
+			</a>
+			<a href="/user">
+				<img src="/assets/icons/user-svgrepo-com.svg" alt="">
+			</a>
+		</div>
+	</nav>
 	{{{body}}}
 </body>
 

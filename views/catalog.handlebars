@@ -1,50 +1,39 @@
-<div class="flex col gap justify align view container">
-	<h1>{{title}}</h1>
+<div class="flex big-gap wrap justify big-padding view catalog-display">
 
-	<label for="search">
-		<span>Search</span>
-		<input type="text" name="search" id="search" placeholder="🔎" autocomplete="off">
-		<span class="invisible">Search</span>
-	</label>
-
-	<form class="flex row big-gap wrap justify align container catalog-display" method="post">
-		{{#each shoe_data}}
+	{{#each shoe_data}}
+	<form action="/shoe/{{shoe_id}}" method="post">
 		<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
-			class="flex col gap container shoe-card" type="submit" formaction="/shoe/{{shoe_id}}">
+			class="flex col gap padding shoe-card" type="submit">
 
-			<div class="container shoe-images">
+			<div class="padding shoe-images">
 				{{#each photos}}
 				<img id="{{color}}" class="hidden shoe-img" src="{{photo_url}}" alt="{{../brand}}">
 				{{/each}}
 				<div class="shoe-price">R{{price}}</div>
 			</div>
 
-			<div class="flex col gap container shoe-details">
+			<div class="flex col gap padding shoe-details">
 				<div><b>{{brand}}</b> {{model}}</div>
 
-				<div class="flex row tiny-gap wrap align shoe-colors">
+				<div class="flex tiny-gap wrap align shoe-colors">
 					<span>Colors:</span>
 					{{#each colors}}
-					{{!-- <button id="{{this}}" class="shoe-color" type="submit"
-						formaction="/shoe/{{shoe_id}}?color={{this}}">{{this}}</button> --}}
 					<span id="{{this}}" class="shoe-color">{{this}}</span>
 					{{/each}}
 				</div>
 
-				<div class="flex row tiny-gap wrap align shoe-sizes">
+				{{#each sizes}}
+				<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
 					<span>Sizes:</span>
-					{{#each sizes}}
-					<span id="{{this}}" class="shoe-size">{{this}}</span>
+					{{#each this}}
+					<span class="highlight shoe-size">{{this}}</span>
 					{{/each}}
 				</div>
-
-				{{!--
-				<button type="submit">Add To Cart</button>
-				--}}
+				{{/each}}
 			</div>
 
 		</button>
-		{{/each}}
 	</form>
+	{{/each}}
 
 </div>

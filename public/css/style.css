@@ -1,32 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-	--primary-bg: #fff;
+	--primary-bg: #FFF;
 	--primary-fg: #000;
-	--secondary-bg: #bdf;
-	--secondary-fg: #420;
+	--secondary-bg: #BDF;
+	--secondary-fg: #FFF;
 
-	--hover-bg: #ccc;
+	--dimmed-bg: #DDD;
+	--dimmed-fg: #666;
+	--highlight-bg: #000;
+	--highlight-fg: #FFF;
+
+	--hover-bg: #CCC;
 	--hover-fg: #444;
-	--active-bg: #aaa;
+	--active-bg: #AAA;
 	--active-fg: #666;
 
-	--accent-1: #0ff;
-	--accent-2: #f0f;
+	--shadow-dim: #000A;
+	--shadow-mid: #0008;
+	--shadow-dark: #0004;
+	--shadow-black: #000;
 
-	--error-bg: #fdd;
-	--error-fg: #c04;
-	--warning-bg: #fed;
-	--warning-fg: #a60;
-	--success-bg: #efe;
+	--accent-1: #7600FF;
+	--accent-2: #FFA0A0;
+	--accent-3: #0FF;
+
+	--error-bg: #FDD;
+	--error-fg: #C04;
+	--warning-bg: #FED;
+	--warning-fg: #A60;
+	--success-bg: #EFE;
 	--success-fg: #284;
-	--info-bg: #def;
-	--info-fg: #48c;
+	--info-bg: #DEF;
+	--info-fg: #48C;
 
-	--form-border: 0.125em;
-	--input-border: 0.125em;
-	--message-border: 0.125em;
-	--card-border: 0.125em;
+	--form-border: 0.125em solid;
+	--input-border: 0.125em solid;
+	--message-border: 0.125em solid;
+	--card-border: 0.125em solid;
+	--img-border: 0.125em solid;
+
+	--card-border-radius: 0.5em;
+
+	--nav-height: 4em;
+	--page-width: 1920px;
 
 	--fast-transition: 250ms;
 	--pace-transition: 500ms;
@@ -67,7 +84,17 @@ body {
 	height: 100%;
 	width: 100%;
 
-	overflow: auto;
+	overflow: hidden;
+}
+
+nav {
+	background: var(--primary-bg);
+	box-shadow: 0 0 1em;
+
+	width: 100%;
+	height: var(--nav-height);
+
+	z-index: 1;
 }
 
 h1,
@@ -104,9 +131,13 @@ h6 {
 	font-size: 1.25em;
 }
 
+a {
+	color: inherit;
+}
+
 img {
-	width: 100%;
-	height: auto;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 input {
@@ -128,20 +159,29 @@ button * {
 }
 
 .view {
-	width: 100%;
-	/* height: calc(100% - 2em); */
+	max-width: var(--page-width);
+	height: calc(100% - var(--nav-height));
 }
 
-.container {
+.small-padding {
+	padding: 0.25em;
+}
+
+.padding {
 	padding: 0.5em;
 }
 
-.wrapper {
+.big-padding {
+	padding: 1em;
+}
+
+.relative {
 	position: relative;
 }
 
 .flex {
 	display: flex;
+	flex-wrap: nowrap;
 }
 
 .flex.col {
@@ -189,6 +229,14 @@ button * {
 	justify-content: space-evenly;
 }
 
+.flex.start {
+	justify-content: start;
+}
+
+.flex.end {
+	justify-content: end;
+}
+
 .flex.align {
 	align-items: center;
 	align-content: center;
@@ -211,7 +259,43 @@ button * {
 	height: 100%;
 }
 
-/* ========== SHOE CATALOG ========== */
+.small-text {
+	font-size: 0.75em;
+}
+
+/* ========== NAVIGATION BAR ========== */
+
+nav>div {
+	width: calc(100%/3);
+	height: 100%;
+}
+
+nav>div>a {
+	height: 100%;
+}
+
+.nav-brand a {
+	transition: transform var(--slow-transition);
+}
+
+.nav-brand a:hover {
+	transform: scale(1.25) translateY(0.125em);
+}
+
+.nav-brand img {
+	width: var(--nav-height);
+	height: var(--nav-height);
+
+	object-fit: contain;
+}
+
+.nav-brand img+span {
+	position: absolute;
+	top: 0.75em;
+	right: -1em;
+
+	transform: rotate(55deg);
+}
 
 #search {
 	border-radius: 0.5em;
@@ -224,7 +308,16 @@ button * {
 
 #search:focus {
 	border-radius: 0.5em;
-	max-width: 20em;
+	max-width: 75%;
+}
+
+#search+span {
+	opacity: 1;
+	transition: opacity var(--fast-transition) ease-in;
+}
+
+#search:focus+span {
+	opacity: 0;
 }
 
 #search::placeholder {
@@ -235,41 +328,52 @@ button * {
 	color: transparent;
 }
 
+/* ========== SHOE CATALOG ========== */
+
+.catalog-display {
+	scrollbar-width: none;
+	overflow: auto;
+}
+
 .shoe-card {
 	background: #fffa;
-	border: 1px solid;
-	border-color: var(--primary-fg);
-	border-radius: 1em;
+	border: none;
+	border-radius: var(--card-border-radius);
+	box-shadow: 0 0.25em 0.5em -0.25em var(--shadow-dim);
 
 	width: 18em;
+	transition:
+		box-shadow var(--pace-transition),
+		background var(--fast-transition);
 }
 
 .shoe-card:hover {
 	background: var(--secondary-bg);
-	border-color: var(--secondary-fg);
+	box-shadow: 0 0.25em 0.5em 0 var(--shadow-mid);
 	cursor: pointer;
 }
 
 .shoe-card>* {
-	border-radius: 0.75em;
+	border-radius: calc(var(--card-border-radius)*0.75);
 }
 
-.shoe-card>*>* {
-	border-radius: 0.5em;
-}
-
+.shoe-card>*>*,
 .shoe-card>*>*>*,
 .shoe-card>*>*>*>*,
 .shoe-card>*>*>*>*>* {
-	border-radius: 0.25em;
+	border-radius: calc(var(--card-border-radius)*0.5);
 }
 
 .shoe-images {
-	background: #fff;
-	border: 1px solid;
+	background: white;
+	box-shadow: 0 0.125em 0.25em -0.125em var(--shadow-dim);
 
 	position: relative;
 	overflow: hidden;
+
+	transition:
+		box-shadow var(--pace-transition),
+		border var(--pace-transition);
 }
 
 .shoe-img {
@@ -277,10 +381,13 @@ button * {
 	height: auto;
 
 	object-fit: cover;
-	object-position: center;
 	aspect-ratio: 1;
 
 	filter: contrast(1.25);
+}
+
+.shoe-card:hover .shoe-images {
+	box-shadow: none;
 }
 
 .shoe-details {
@@ -288,13 +395,13 @@ button * {
 
 	overflow: hidden;
 	transition: max-height var(--pace-transition);
-	transition-delay: 500ms;
+	transition-delay: 0ms;
 }
 
 .shoe-card:hover .shoe-details {
 	/* max-height: 20em; */
 
-	transition-delay: 0ms;
+	transition-delay: 1000ms;
 }
 
 .shoe-price {
@@ -311,8 +418,10 @@ button * {
 	padding: 0.125em 0.25em;
 }
 
-.shoe-card:hover .highlight {
-	background: var(--primary-bg);
+.shoe-color.highlight {
+	background: var(--highlight-bg);
+	color: var(--highlight-fg);
+	border-color: var(--highlight-bg);
 }
 
 /********** MESSAGES **********/
@@ -405,10 +514,6 @@ button * {
 
 /********** FUNCTIONALITY **********/
 
-.highlight {
-	background: var(--secondary-bg);
-}
-
 .invisible {
 	opacity: 0;
 }
@@ -416,3 +521,17 @@ button * {
 .hidden {
 	display: none;
 }
+
+/********** TEMPORARY (remove for deployment) **********/
+
+/* .shoe-card {
+	outline: 1px solid red;
+} */
+
+/* nav>* {
+	outline: 1px solid cyan;
+}
+
+nav>*>* {
+	outline: 1px solid red;
+} */
