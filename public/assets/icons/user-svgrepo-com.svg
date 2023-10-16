@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <path id="user-a" d="M6,0 L10,0 C10,1.1045695 9.1045695,2 8,2 C6.8954305,2 6,1.1045695 6,0 Z M16,13.4537699 C13.3119196,14.48459 10.6263029,15 7.94314973,15 C5.2599966,15 2.61228002,14.48459 0,13.4537699 C0.534574606,9.15125664 3.18229118,7 7.94314973,7 C12.7040083,7 15.389625,9.15125664 16,13.4537699 Z"/>
@@ -7,19 +8,19 @@
   </defs>
   <g fill="none" fill-rule="evenodd" transform="translate(3 1)">
     <g transform="translate(1 5)">
-      <mask id="user-b" fill="#ffffff">
+      <mask id="user-b" fill="#FFF">
         <use xlink:href="#user-a"/>
       </mask>
-      <use fill="#D8D8D8" xlink:href="#user-a"/>
-      <g fill="#FFA0A0" mask="url(#user-b)">
+      <use fill="#FFF" xlink:href="#user-a"/>
+      <g fill="#FAA" mask="url(#user-b)">
         <rect width="24" height="24" transform="translate(-4 -6)"/>
       </g>
     </g>
     <mask id="user-d" fill="#ffffff">
       <use xlink:href="#user-c"/>
     </mask>
-    <use fill="#000000" fill-rule="nonzero" xlink:href="#user-c"/>
-    <g fill="#7600FF" mask="url(#user-d)">
+    <use fill="#FFF" fill-rule="nonzero" xlink:href="#user-c"/>
+    <g fill="#80F" mask="url(#user-d)">
       <rect width="24" height="24" transform="translate(-3 -1)"/>
     </g>
   </g>

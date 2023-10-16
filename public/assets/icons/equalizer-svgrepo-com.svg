@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <path id="equalizer-a" d="M8,2 C7.44771525,2 7,1.55228475 7,1 C7,0.44771525 7.44771525,0 8,0 C8.55228475,0 9,0.44771525 9,1 C9,1.55228475 8.55228475,2 8,2 Z M1,9 C0.44771525,9 0,8.55228475 0,8 C0,7.44771525 0.44771525,7 1,7 C1.55228475,7 2,7.44771525 2,8 C2,8.55228475 1.55228475,9 1,9 Z M7,16 C6.44771525,16 6,15.5522847 6,15 C6,14.4477153 6.44771525,14 7,14 C7.55228475,14 8,14.4477153 8,15 C8,15.5522847 7.55228475,16 7,16 Z"/>
@@ -10,16 +11,16 @@
       <mask id="equalizer-b" fill="#ffffff">
         <use xlink:href="#equalizer-a"/>
       </mask>
-      <use fill="#D8D8D8" xlink:href="#equalizer-a"/>
-      <g fill="#FFA0A0" mask="url(#equalizer-b)">
+      <use fill="#FFF" xlink:href="#equalizer-a"/>
+      <g fill="#FAA" mask="url(#equalizer-b)">
         <rect width="24" height="24" transform="translate(-7 -4)"/>
       </g>
     </g>
     <mask id="equalizer-d" fill="#ffffff">
       <use xlink:href="#equalizer-c"/>
     </mask>
-    <use fill="#000000" xlink:href="#equalizer-c"/>
-    <g fill="#7600FF" mask="url(#equalizer-d)">
+    <use fill="#FFF" xlink:href="#equalizer-c"/>
+    <g fill="#80F" mask="url(#equalizer-d)">
       <rect width="24" height="24" transform="translate(-2 -1)"/>
     </g>
   </g>

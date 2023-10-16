@@ -16,13 +16,17 @@
 	--active-bg: #AAA;
 	--active-fg: #666;
 
-	--shadow-dim: #000A;
+	--transparent-dim: #FFFC;
+	--transparent-mid: #FFFA;
+	--transparent-light: #FFF8;
+
+	--shadow-dim: #0004;
 	--shadow-mid: #0008;
-	--shadow-dark: #0004;
+	--shadow-dark: #000A;
 	--shadow-black: #000;
 
-	--accent-1: #7600FF;
-	--accent-2: #FFA0A0;
+	--accent-1: #80F;
+	--accent-2: #FAA;
 	--accent-3: #0FF;
 
 	--error-bg: #FDD;
@@ -43,11 +47,12 @@
 	--card-border-radius: 0.5em;
 
 	--nav-height: 4em;
+	--menu-height: 4em;
 	--page-width: 1920px;
 
 	--fast-transition: 250ms;
 	--pace-transition: 500ms;
-	--slow-transition: 1s;
+	--slow-transition: 1000ms;
 
 	font-size: 16px;
 	font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -136,26 +141,31 @@ a {
 }
 
 img {
-	max-width: 100%;
-	max-height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 input {
-	background: white;
-	border: 1px solid;
+	background: transparent;
+	box-shadow: 0 0 0 1px;
 
 	padding: 0.25em 0.5em;
 }
 
-button {
+button,
+select {
 	background: none;
 	border: 1px solid;
 
-	/* padding: 0.25em 0.5em; */
+	text-align: center;
+
+	cursor: pointer;
+	appearance: none;
 }
 
-button * {
-	text-align: justify;
+.ui-icon {
+	max-height: 2em;
+	max-width: 2em;
 }
 
 .view {
@@ -275,7 +285,8 @@ nav>div>a {
 }
 
 .nav-brand a {
-	transition: transform var(--slow-transition);
+	transition:
+		transform var(--slow-transition);
 }
 
 .nav-brand a:hover {
@@ -298,48 +309,83 @@ nav>div>a {
 }
 
 #search {
-	border-radius: 0.5em;
-	max-width: 2.5em;
+	background: linear-gradient(180deg, transparent 80%, var(--accent-2) 80%);
+	color: transparent;
+	border-radius: 2em;
+	box-shadow: 0 0 0 0.125em var(--accent-1);
+
+	width: 2.5em;
 	height: 2.5em;
 	text-align: center;
 
-	transition: all var(--pace-transition);
+	transition:
+		width var(--pace-transition),
+		color var(--pace-transition);
 }
 
 #search:focus {
-	border-radius: 0.5em;
-	max-width: 75%;
+	color: var(--primary-fg);
+	width: 15em;
 }
 
 #search+span {
-	opacity: 1;
-	transition: opacity var(--fast-transition) ease-in;
+	font-size: 1.25em;
+
+	position: absolute;
+	right: 0.5em;
+
+	pointer-events: none;
+	transition:
+		all var(--slow-transition);
 }
 
 #search:focus+span {
-	opacity: 0;
-}
-
-#search::placeholder {
-	font-size: 1.25em;
-}
-
-#search:focus::placeholder {
-	color: transparent;
+	right: -1.5em;
 }
 
 /* ========== SHOE CATALOG ========== */
 
+.catalog-menu {
+	background: var(--transparent-dim);
+
+	height: var(--menu-height);
+}
+
+.catalog-menu button,
+.catalog-menu select,
+.catalog-menu label div {
+	background: var(--primary-bg);
+	border-color: var(--accent-1);
+	border-radius: 0.5em;
+
+	height: 2em;
+	width: fit-content;
+}
+
+.catalog-menu label div {
+	background: linear-gradient(transparent 54%, var(--primary-bg) 54%);
+	font-size: 0.75em;
+	position: absolute;
+	top: -0.75em;
+	left: 1em;
+}
+
 .catalog-display {
+	height: calc(100% - var(--menu-height));
+
 	scrollbar-width: none;
 	overflow: auto;
 }
 
+/* ========== SHOE CARD ========== */
+
 .shoe-card {
-	background: #fffa;
+	background: var(--transparent-light);
 	border: none;
 	border-radius: var(--card-border-radius);
 	box-shadow: 0 0.25em 0.5em -0.25em var(--shadow-dim);
+
+	text-align: justify;
 
 	width: 18em;
 	transition:
@@ -365,7 +411,7 @@ nav>div>a {
 }
 
 .shoe-images {
-	background: white;
+	background: var(--transparent-dim);
 	box-shadow: 0 0.125em 0.25em -0.125em var(--shadow-dim);
 
 	position: relative;
@@ -394,7 +440,8 @@ nav>div>a {
 	/* max-height: 2em; */
 
 	overflow: hidden;
-	transition: max-height var(--pace-transition);
+	transition:
+		max-height var(--pace-transition);
 	transition-delay: 0ms;
 }
 
