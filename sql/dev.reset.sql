@@ -10,6 +10,7 @@ CREATE TABLE shoe_catalog.shoes (
     brand VARCHAR(255) NOT NULL,
     model VARCHAR(255) NOT NULL,
     price INT NOT NULL,
+	sold INT NOT NULL DEFAULT 0,
 	CONSTRAINT shoe_name UNIQUE (brand, model)
 );
 

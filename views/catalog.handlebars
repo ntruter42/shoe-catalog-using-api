@@ -1,62 +1,66 @@
-<div class="flex col view catalog">
-
-	<div class="flex align padding catalog-menu">
-		<button class="flex align small-gap padding filter-button" type="submit">
-			<img class="ui-icon" src="/assets/icons/equalizer-svgrepo-com.svg">
-			<span>Filters</span>
-		</button>
-
-		<label class="flex align small-padding relative sort-category" for="sort-dropdown">
-			<select class="sort-dropdown" name="sort-dropdown">
-				<option value="newest">Newest</option>
-				<option value="popular">Popularity</option>
-				<option value="low-high">Price (Low - High)</option>
-				<option value="high-low">Price (High - Low)</option>
-			</select>
-			<div class="flex align small-padding">
-				<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
-				<span>Sort</span>
-				<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
-			</div>
-		</label>
+<div class="flex row view relative catalog">
+	<div class="flex col filter-bar">
 	</div>
 
-	<div class="flex big-gap wrap justify big-padding view catalog-display">
-		{{#each shoe_data}}
-		<form action="/shoe/{{shoe_id}}" method="post">
-			<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
-				class="flex col gap padding shoe-card" type="submit">
-
-				<div class="padding shoe-images">
-					{{#each photos}}
-					<img id="{{color}}" class="hidden shoe-img" src="{{photo_url}}" alt="{{../brand}}">
-					{{/each}}
-					<div class="shoe-price">R{{price}}</div>
-				</div>
-
-				<div class="flex col gap padding shoe-details">
-					<div><b>{{brand}}</b> {{model}}</div>
-
-					<div class="flex tiny-gap wrap align shoe-colors">
-						{{!-- <span>Colors:</span> --}}
-						{{#each colors}}
-						<span id="{{this}}" class="shoe-color">{{this}}</span>
-						{{/each}}
-					</div>
-
-					{{#each sizes}}
-					<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
-						<span>Sizes:</span>
-						{{#each this}}
-						<span class="highlight shoe-size">{{this}}</span>
-						{{/each}}
-					</div>
-					{{/each}}
-				</div>
-
+	<div class="flex col catalog-section">
+		<div class="flex align big-padding gap catalog-menu">
+			<button class="flex align small-gap padding filter-button" type="button">
+				<img class="ui-icon" src="/assets/icons/equalizer-svgrepo-com.svg">
+				<span>Filters</span>
 			</button>
-		</form>
-		{{/each}}
+
+			<label class="flex align small-padding relative sort-category" for="sort-dropdown">
+				<select class="small-padding sort-dropdown" name="sort-dropdown">
+					<option value="newest">Newest</option>
+					<option value="popular">Popularity</option>
+					<option value="low-high">Price (Low - High)</option>
+					<option value="high-low">Price (High - Low)</option>
+				</select>
+				<div class="flex align">
+					<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
+					<span>Sort</span>
+					<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
+				</div>
+			</label>
+		</div>
+
+		<div class="flex big-gap wrap justify big-padding view catalog-display">
+			{{#each shoe_data}}
+			<form action="/shoe/{{shoe_id}}" method="post">
+				<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
+					class="flex col gap padding shoe-card" type="submit">
+
+					<div class="padding shoe-images">
+						{{#each photos}}
+						<img id="{{color}}" class="hidden shoe-img" src="{{photo_url}}" alt="{{../brand}}">
+						{{/each}}
+						<div class="shoe-price">R{{price}}</div>
+					</div>
+
+					<div class="flex col gap padding shoe-details">
+						<div><b>{{brand}}</b> {{model}}</div>
+
+						<div class="flex tiny-gap wrap align shoe-colors">
+							{{!-- <span>Colors:</span> --}}
+							{{#each colors}}
+							<span id="{{this}}" class="shoe-color">{{this}}</span>
+							{{/each}}
+						</div>
+
+						{{#each sizes}}
+						<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
+							<span>Sizes:</span>
+							{{#each this}}
+							<span class="highlight shoe-size">{{this}}</span>
+							{{/each}}
+						</div>
+						{{/each}}
+					</div>
+
+				</button>
+			</form>
+			{{/each}}
+		</div>
 	</div>
 
 </div>

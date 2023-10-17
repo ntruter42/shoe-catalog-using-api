@@ -11,8 +11,7 @@ router.get('/', async (req, res) => {
 
 	res.render('catalog', {
 		page: "Shop",
-		shoe_data,
-		variants: shoes.variants
+		shoe_data
 	});
 });
 

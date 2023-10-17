@@ -48,6 +48,7 @@
 
 	--nav-height: 4em;
 	--menu-height: 4em;
+	--filters-width: 15em;
 	--page-width: 1920px;
 
 	--fast-transition: 250ms;
@@ -90,16 +91,6 @@ body {
 	width: 100%;
 
 	overflow: hidden;
-}
-
-nav {
-	background: var(--primary-bg);
-	box-shadow: 0 0 1em;
-
-	width: 100%;
-	height: var(--nav-height);
-
-	z-index: 1;
 }
 
 h1,
@@ -166,6 +157,13 @@ select {
 .ui-icon {
 	max-height: 2em;
 	max-width: 2em;
+
+	transition:
+		transform var(--fast-transition);
+}
+
+.ui-icon:hover {
+	transform: scale(1.125);
 }
 
 .view {
@@ -275,6 +273,16 @@ select {
 
 /* ========== NAVIGATION BAR ========== */
 
+nav {
+	background: var(--primary-bg);
+	box-shadow: 0 0 1em;
+
+	width: 100%;
+	height: var(--nav-height);
+
+	z-index: 3;
+}
+
 nav>div {
 	width: calc(100%/3);
 	height: 100%;
@@ -286,11 +294,11 @@ nav>div>a {
 
 .nav-brand a {
 	transition:
-		transform var(--slow-transition);
+		transform var(--pace-transition);
 }
 
 .nav-brand a:hover {
-	transform: scale(1.25) translateY(0.125em);
+	transform: scale(1.125) translateY(0.125em);
 }
 
 .nav-brand img {
@@ -302,8 +310,8 @@ nav>div>a {
 
 .nav-brand img+span {
 	position: absolute;
-	top: 0.75em;
-	right: -1em;
+	top: 1em;
+	right: -1.5em;
 
 	transform: rotate(55deg);
 }
@@ -336,7 +344,8 @@ nav>div>a {
 
 	pointer-events: none;
 	transition:
-		all var(--slow-transition);
+		right var(--slow-transition),
+		transform var(--fast-transition);
 }
 
 #search:focus+span {
@@ -345,8 +354,38 @@ nav>div>a {
 
 /* ========== SHOE CATALOG ========== */
 
+.filter-bar {
+	background: var(--transparent-dim);
+	box-shadow: 0 0 1em -0.5em;
+
+	position: absolute;
+	top: 0;
+	left: calc(var(--filters-width) * -1);
+	z-index: 2;
+
+	width: var(--filters-width);
+	height: 100%;
+
+	overflow: hidden;
+	transition:
+		left var(--pace-transition);
+	transition-delay: 100ms;
+}
+
+.catalog-section {
+	width: 100vw;
+
+	transition:
+		margin-left var(--pace-transition),
+		width var(--pace-transition);
+	transition-delay: 100ms;
+}
+
 .catalog-menu {
 	background: var(--transparent-dim);
+	box-shadow: 0 0 1em -0.5em;
+
+	z-index: 1;
 
 	height: var(--menu-height);
 }
@@ -363,15 +402,55 @@ nav>div>a {
 }
 
 .catalog-menu label div {
-	background: linear-gradient(transparent 54%, var(--primary-bg) 54%);
 	font-size: 0.75em;
+
+	background: linear-gradient(transparent 54%, var(--primary-bg) 54%);
+
 	position: absolute;
 	top: -0.75em;
 	left: 1em;
+
+	pointer-events: none;
+}
+
+.catalog-menu button img {
+	transition:
+		transform var(--fast-transition);
+}
+
+.catalog-menu button {
+	transition:
+		transform var(--fast-transition);
+}
+
+.catalog-menu button:active {
+	transform: translateX(1em);
+}
+
+.catalog-section.shrink-catalog-section .catalog-menu button:active {
+	transform: translateX(-1em);
+}
+
+.catalog-menu button:hover img {
+	transform: scale(1.25);
+}
+
+.catalog-menu label div img:nth-of-type(even) {
+	transform: rotate(180deg);
+}
+
+.catalog-menu label:hover div img:nth-of-type(even) {
+	transform: rotate(360deg);
+}
+
+.catalog-menu label:hover div img:nth-of-type(odd) {
+	transform: rotate(180deg);
 }
 
 .catalog-display {
 	height: calc(100% - var(--menu-height));
+
+	z-index: 0;
 
 	scrollbar-width: none;
 	overflow: auto;
@@ -411,7 +490,7 @@ nav>div>a {
 }
 
 .shoe-images {
-	background: var(--transparent-dim);
+	background: var(--primary-bg);
 	box-shadow: 0 0.125em 0.25em -0.125em var(--shadow-dim);
 
 	position: relative;
@@ -434,6 +513,49 @@ nav>div>a {
 
 .shoe-card:hover .shoe-images {
 	box-shadow: none;
+}
+
+.shoe-price {
+	font-size: 1.25rem;
+
+	background: var(--accent-2);
+	border-radius: 0.25rem;
+
+	position: absolute;
+
+	padding: 0.275rem 0.5rem;
+
+	transform: rotate(-15deg);
+}
+
+.shoe-price:before {
+	content: '';
+
+	border-top: 1.125rem solid transparent;
+	border-bottom: 1.125rem solid transparent;
+	border-right: 1.125rem solid var(--accent-2);
+
+	position: absolute;
+	top: 50%;
+	left: -1rem;
+
+	transform: translateY(-50%);
+}
+
+.shoe-price:after {
+	content: '';
+
+	background-color: var(--primary-bg);
+	border-radius: 50%;
+
+	position: absolute;
+	top: 50%;
+	left: -0.5rem;
+
+	width: 0.5rem;
+	height: 0.5rem;
+
+	transform: translateY(-50%);
 }
 
 .shoe-details {
@@ -557,6 +679,15 @@ nav>div>a {
 		padding: 0;
 		opacity: 0;
 	}
+}
+
+.expand-filter-bar {
+	left: 0;
+}
+
+.shrink-catalog-section {
+	margin-left: var(--filters-width);
+	width: calc(100vw - var(--filters-width));
 }
 
 /********** FUNCTIONALITY **********/
