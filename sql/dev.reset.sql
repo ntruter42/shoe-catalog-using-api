@@ -40,13 +40,14 @@ CREATE TABLE shoe_catalog.users (
 CREATE TABLE shoe_catalog.carts (
 	cart_id SERIAL PRIMARY KEY,
 	user_id INT NOT NULL REFERENCES shoe_catalog.users(user_id) ON DELETE CASCADE,
-	paid BOOLEAN DEFAULT false
+	paid BOOLEAN DEFAULT false,
+	CONSTRAINT current_cart UNIQUE (user_id, paid)
 );
 
 CREATE TABLE shoe_catalog.cart_items (
 	cart_id INT NOT NULL REFERENCES shoe_catalog.carts(cart_id) ON DELETE CASCADE,
 	item_id INT NOT NULL REFERENCES shoe_catalog.stock(item_id) ON DELETE CASCADE,
-	item_count INT NOT NULL
+	item_count INT NOT NULL DEFAULT 0
 );
 
 ALTER SEQUENCE shoe_catalog.shoes_shoe_id_seq RESTART WITH 1000;
@@ -93,21 +94,21 @@ INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url) VALUES (1001, 'Black
 
 -- ADD USERS AND CARTS
 -- Step 1: Create user account
--- INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('ntruter42', 'Nicholas Truter', '$2b$10$cxK.emL.AHc7XzMf5fVaTe5gFjNblOowr71YC.qFN4UJvZ902VKzG'); -- pw = 'codex123123'
+INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('ntruter42', 'Nicholas Truter', '$2b$10$cxK.emL.AHc7XzMf5fVaTe5gFjNblOowr71YC.qFN4UJvZ902VKzG'); -- pw = 'codex123123'
 -- Step 2: Create cart (after user clicks add to cart, if non-paid cart for user_id doesn't exist)
--- INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1000, false);
+INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1000, false);
 -- Step 3: Add items to cart
--- INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1000, 1006, 1); -- use returned cart_id (1000), use inserted item_id (1000)
--- INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1000, 1012, 1);
+INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1000, 1006, 1); -- use returned cart_id (1000), use inserted item_id (1000)
+INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1000, 1012, 1);
 -- Step 4: Pay for cart
--- UPDATE shoe_catalog.carts SET paid = true WHERE user_id = 1000;
+UPDATE shoe_catalog.carts SET paid = true WHERE user_id = 1000;
 -- Repeat Steps 2-4 after user pays for cart
--- INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1000, false);
+INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1000, false);
 
 -- Repeat Steps 1-4 for different user
--- INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('emusk69', 'Elon Musk', '$2b$10$aTEFSH3iQnefKPT9L3cOFuiEYyzcaKqh9JsiQElcjB2d.Uyrdhu96'); -- pw = 'tesla123'
--- INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1001, false);
--- INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1002, 1015, 1);
+INSERT INTO shoe_catalog.users (username, full_name, password) VALUES ('emusk69', 'Elon Musk', '$2b$10$aTEFSH3iQnefKPT9L3cOFuiEYyzcaKqh9JsiQElcjB2d.Uyrdhu96'); -- pw = 'tesla123'
+INSERT INTO shoe_catalog.carts (user_id, paid) VALUES (1001, false);
+INSERT INTO shoe_catalog.cart_items (cart_id, item_id, item_count) VALUES (1002, 1014, 1);
 
 
 
@@ -189,38 +190,38 @@ VALUES
 
 INSERT INTO shoe_catalog.photos (shoe_id, color, photo_url)
 VALUES
-	-- (1002, 'Black', 'https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp'),
-	-- (1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp'),
+	(1002, 'Black', 'https://i.ibb.co/DGNyqNw/ua-mircogvalsetz-black.webp'),
+	(1002, 'Gold', 'https://i.ibb.co/g4MHQ9x/ua-mircogvalsetz-gold.webp'),
 
-	-- (1003, 'Black', 'https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp'),
+	(1003, 'Black', 'https://i.ibb.co/JKLCrCb/ua-assert9-blackwhite.webp'),
 
-	-- (1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
-	-- (1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
-	-- (1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
+	(1004, 'Black', 'https://i.ibb.co/2FP1fqk/nike-gripknit-phantom-gx-blackwhite.webp'),
+	(1004, 'Red', 'https://i.ibb.co/SvrXpjQ/nike-gripknit-phantom-gx-blackred.webp'),
+	(1004, 'Green-Orange', 'https://i.ibb.co/ySXrhWL/nike-gripknit-phantom-gx-orange.webp'),
 
-	-- (1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
-	-- (1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
-	-- (1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
+	(1005, 'Black-White', 'https://i.ibb.co/D7J9f9X/nb-650-whiteblack.webp'),
+	(1005, 'Blue', 'https://i.ibb.co/Gsy6ft1/nb-650-whiteblue.webp'),
+	(1005, 'Red', 'https://i.ibb.co/QPXyM88/nb-650-whitered.webp'),
 
-	-- (1006, 'White-Black', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
-	-- (1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
-	-- (1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp'),
-	-- (1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp');
+	(1006, 'White-Black', 'https://i.ibb.co/4mXvtxv/nb-650v2-whiteblack.webp'),
+	(1006, 'White-Blue', 'https://i.ibb.co/yQkYycy/nb-650v2-whiteblue.webp'),
+	(1006, 'White-Yellow', 'https://i.ibb.co/W6fR92n/nb-650v2-whiteyellow.webp'),
+	(1006, 'Black-Red', 'https://i.ibb.co/jrYTm71/nb-650v2-blackred.webp');
 
-	(1002, 'Black', '/assets/images/shoes/ua-mircogvalsetz-black.png'),
-	(1002, 'Gold', '/assets/images/shoes/ua-mircogvalsetz-gold.png'),
+	-- (1002, 'Black', '/assets/images/shoes/ua-mircogvalsetz-black.png'),
+	-- (1002, 'Gold', '/assets/images/shoes/ua-mircogvalsetz-gold.png'),
 
-	(1003, 'Black', '/assets/images/shoes/ua-assert9-blackwhite.png'),
+	-- (1003, 'Black', '/assets/images/shoes/ua-assert9-blackwhite.png'),
 
-	(1004, 'Black', '/assets/images/shoes/nike-gripknit-phantom-gx-blackwhite.png'),
-	(1004, 'Red', '/assets/images/shoes/nike-gripknit-phantom-gx-blackred.png'),
-	(1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-greenorange.png'),
+	-- (1004, 'Black', '/assets/images/shoes/nike-gripknit-phantom-gx-blackwhite.png'),
+	-- (1004, 'Red', '/assets/images/shoes/nike-gripknit-phantom-gx-blackred.png'),
+	-- (1004, 'Green-Orange', '/assets/images/shoes/nike-gripknit-phantom-gx-greenorange.png'),
 
-	(1005, 'Black-White', '/assets/images/shoes/nb-650-whiteblack.png'),
-	(1005, 'Blue', '/assets/images/shoes/nb-650-whiteblue.png'),
-	(1005, 'Red', '/assets/images/shoes/nb-650-whitered.png'),
+	-- (1005, 'Black-White', '/assets/images/shoes/nb-650-whiteblack.png'),
+	-- (1005, 'Blue', '/assets/images/shoes/nb-650-whiteblue.png'),
+	-- (1005, 'Red', '/assets/images/shoes/nb-650-whitered.png'),
 
-	(1006, 'White-Black', '/assets/images/shoes/nb-650v2-whiteblack.png'),
-	(1006, 'White-Blue', '/assets/images/shoes/nb-650v2-whiteblue.png'),
-	(1006, 'White-Yellow', '/assets/images/shoes/nb-650v2-whiteyellow.png'),
-	(1006, 'Black-Red', '/assets/images/shoes/nb-650v2-blackred.png');
+	-- (1006, 'White-Black', '/assets/images/shoes/nb-650v2-whiteblack.png'),
+	-- (1006, 'White-Blue', '/assets/images/shoes/nb-650v2-whiteblue.png'),
+	-- (1006, 'White-Yellow', '/assets/images/shoes/nb-650v2-whiteyellow.png'),
+	-- (1006, 'Black-Red', '/assets/images/shoes/nb-650v2-blackred.png');
