@@ -11,13 +11,12 @@ router.get('/', async (req, res) => {
 		brands: ["Adidas", "New Balance", "Nike", "Under Armour"],
 		colors: [
 			"Black",
-			"Black-Red",
-			"Black-White",
-			"Blue", "Gold",
-			"Green-Orange",
+			"Blue",
+			"Gold",
+			"Green",
+			"Orange",
 			"White",
-			"White-Blue",
-			"White-Yellow",
+			"Yellow",
 			"Red"
 		],
 		sizes: [4, 5, 6, 7, 8, 9, 10, 11]

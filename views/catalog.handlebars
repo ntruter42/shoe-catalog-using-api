@@ -37,9 +37,9 @@
 			</label>
 		</div>
 
-		<div class="flex big-gap wrap justify big-padding view catalog-display">
+		<div class="flex big-gap wrap justify align big-padding view catalog-display">
 			{{#each shoes}}
-			<a id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
+			<a id="{{brand}}-{{#each variants}}{{@key}}-{{/each}}{{#each variants.sizes}}{{this}}-{{/each}}{{model}}"
 				class="flex col gap padding shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
 				<div class="padding shoe-images">
 					{{#each photos}}
