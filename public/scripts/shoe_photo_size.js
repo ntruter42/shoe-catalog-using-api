@@ -1,13 +1,27 @@
 window.addEventListener('load', () => {
-	const page = document.querySelector(".shoe-catalog");
+	const page = document.querySelector(".shoe-page");
 	const shoes = page.querySelectorAll(".shoe-card");
+	const addToCart = page.querySelector("button[id=add-to-cart]");
 
 	// Loop through each shoe card in the catalog
 	shoes.forEach(shoe => {
 		// Gather relevant DOM elements
 		const images = shoe.querySelectorAll(".shoe-img");
 		const colors = shoe.querySelectorAll(".shoe-color");
-		const sizes = shoe.querySelectorAll(".shoe-color-sizes");
+		const color_sizes = shoe.querySelectorAll(".shoe-color-sizes");
+		const sizes = shoe.querySelectorAll(".shoe-size");
+
+		sizes.forEach(size => {
+			size.addEventListener("click", () => {
+				sizes.forEach(option => {
+					if (option.id === size.id) {
+						option.classList.add("highlight");
+					} else {
+						option.classList.remove("highlight");
+					}
+				});
+			});
+		});
 
 		// Display first image of shoe (sorting handled in before render)
 		images[0].classList.remove("hidden");
@@ -19,8 +33,8 @@ window.addEventListener('load', () => {
 				color.classList.add("highlight");
 
 				// Show sizes for highlighted color (sizes id's are color name with "-size" suffix)
-				if (sizes[0].id === color.id + "-size") {
-					sizes[0].classList.remove("hidden");
+				if (color_sizes[0].id === color.id + "-size") {
+					color_sizes[0].classList.remove("hidden");
 				}
 			}
 
@@ -50,7 +64,7 @@ window.addEventListener('load', () => {
 				});
 
 				// Loop through sizes for each color
-				sizes.forEach(size => {
+				color_sizes.forEach(size => {
 					// Show sizes with id of clicked color
 					if (size.id === color.id + "-size") {
 						size.classList.remove("hidden");
@@ -59,32 +73,20 @@ window.addEventListener('load', () => {
 					}
 				});
 			});
-
 		});
 	});
+
+	addToCart.addEventListener("click", () => {
+		const shoe_id = page.querySelector(".shoe-card").id;
+		const selectedColor = page.querySelector(".shoe-color.highlight").id;
+		const selectedSize = page.querySelector(".shoe-size.highlight").id;
+		const selection = { color: selectedColor, size: selectedSize };
+		// console.log(selection);
+
+		fetch(`http://localhost:3000/shoe/${shoe_id}`, {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(selection),
+		})
+	});
 });
-
-// FOR LATER USE: remove event listener for shoe card on click of color
-
-// color.addEventListener("click", (event) => {
-// 	event.preventDefault();
-// 	color.removeEventListener("mouseover", (event) => {
-
-// 	});
-
-// 	colors.forEach(option => {
-// 		if (option.id === color.id) {
-// 			option.classList.add("highlight");
-// 		} else {
-// 			option.classList.remove("highlight");
-// 		}
-// 	});
-
-// 	images.forEach(image => {
-// 		if (image.id === color.id) {
-// 			image.classList.remove("hidden");
-// 		} else {
-// 			image.classList.add("hidden");
-// 		}
-// 	});
-// });

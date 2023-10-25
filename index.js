@@ -7,5 +7,6 @@ app.use('/', catalog_routes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-	console.log(`http://localhost:${PORT}`);
+	console.clear();
+	console.log(`http://localhost: ${PORT} \x1b[47m                                                            \x1b[0m`);
 });

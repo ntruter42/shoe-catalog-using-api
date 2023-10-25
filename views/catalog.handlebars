@@ -1,5 +1,18 @@
-<div class="flex row view relative catalog">
-	<div class="flex col filter-bar">
+<div class="flex row view relative shoe-catalog">
+	<div class="flex col big-gap big-padding filter-bar">
+		{{#each filters}}
+		<h4>{{@key}}</h4>
+
+		<div class="flex col gap {{@key}}-filter">
+			{{#each this}}
+			<label class="flex gap" for="{{this}}">
+				<input class="filter-checkbox" type="checkbox" name="{{this}}" id="{{this}}" value="{{this}}">
+				<span>{{this}}</span>
+			</label>
+			{{/each}}
+		</div>
+
+		{{/each}}
 	</div>
 
 	<div class="flex col catalog-section">
@@ -25,40 +38,35 @@
 		</div>
 
 		<div class="flex big-gap wrap justify big-padding view catalog-display">
-			{{#each shoe_data}}
-			<form action="/shoe/{{shoe_id}}" method="post">
-				<button id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
-					class="flex col gap padding shoe-card" type="submit">
+			{{#each shoes}}
+			<a id="{{brand}}-{{#each colors}}{{this}}-{{/each}}{{#each sizes}}{{this}}-{{/each}}{{model}}"
+				class="flex col gap padding shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
+				<div class="padding shoe-images">
+					{{#each photos}}
+					<img id="{{@key}}" class="hidden shoe-img" src="{{this}}" alt="{{../brand}}">
+					{{/each}}
+					<div class="shoe-price">R{{price}}</div>
+				</div>
 
-					<div class="padding shoe-images">
-						{{#each photos}}
-						<img id="{{color}}" class="hidden shoe-img" src="{{photo_url}}" alt="{{../brand}}">
-						{{/each}}
-						<div class="shoe-price">R{{price}}</div>
-					</div>
+				<div class="flex col gap padding shoe-details">
+					<div><b>{{brand}}</b> {{model}}</div>
 
-					<div class="flex col gap padding shoe-details">
-						<div><b>{{brand}}</b> {{model}}</div>
-
-						<div class="flex tiny-gap wrap align shoe-colors">
-							{{!-- <span>Colors:</span> --}}
-							{{#each colors}}
-							<span id="{{this}}" class="shoe-color">{{this}}</span>
-							{{/each}}
-						</div>
-
-						{{#each sizes}}
-						<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
-							<span>Sizes:</span>
-							{{#each this}}
-							<span class="highlight shoe-size">{{this}}</span>
-							{{/each}}
-						</div>
+					<div class="flex tiny-gap wrap align shoe-colors">
+						{{#each variants}}
+						<span id="{{@key}}" class="shoe-color">{{@key}}</span>
 						{{/each}}
 					</div>
 
-				</button>
-			</form>
+					{{#each variants}}
+					<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
+						<span>Sizes:</span>
+						{{#each this}}
+						<span class="shoe-size">{{size}}</span>
+						{{/each}}
+					</div>
+					{{/each}}
+				</div>
+			</a>
 			{{/each}}
 		</div>
 	</div>

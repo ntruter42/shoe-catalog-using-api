@@ -508,7 +508,7 @@ nav>div>a {
 	object-fit: cover;
 	aspect-ratio: 1;
 
-	filter: contrast(1.25);
+	/* filter: contrast(1.25); */
 }
 
 .shoe-card:hover .shoe-images {
@@ -587,7 +587,8 @@ nav>div>a {
 	padding: 0.125em 0.25em;
 }
 
-.shoe-color.highlight {
+.shoe-color.highlight,
+.shoe-size.highlight {
 	background: var(--highlight-bg);
 	color: var(--highlight-fg);
 	border-color: var(--highlight-bg);
