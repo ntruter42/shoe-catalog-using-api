@@ -7,22 +7,8 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	const shoes = (await axios.get(`${process.env.API_URI}/api/shoes`)).data.shoes;
-	const filters = {
-		brands: ["Adidas", "New Balance", "Nike", "Under Armour"],
-		colors: [
-			"Black",
-			"Blue",
-			"Gold",
-			"Green",
-			"Orange",
-			"White",
-			"Yellow",
-			"Red"
-		],
-		sizes: [4, 5, 6, 7, 8, 9, 10, 11]
-	}
+	const filters = (await axios.get(`${process.env.API_URI}/api/shoes/filters`)).data.filters;
 
-	// console.log(shoes);
 	res.render('catalog', {
 		page: "Shop",
 		shoes,

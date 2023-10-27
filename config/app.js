@@ -23,7 +23,27 @@ export default function App() {
 	app.engine('handlebars', engine({
 		defaultLayout: 'main',
 		viewPath: './views',
-		layoutsDir: './views/layouts'
+		layoutsDir: './views/layouts',
+		helpers: {
+			ifPosition: function (position, options) {
+				if (position === options.hash.position) {
+					return options.fn(this);
+				}
+				return options.inverse(this);
+			},
+			ifEqual: function (value, input, options) {
+				if (value === input) {
+					return options.fn(this);
+				}
+				return options.inverse(this);
+			},
+			capitalize: function (str) {
+				return str.charAt(0).toUpperCase() + str.slice(1);
+			},
+			localize: function (num) {
+				return num.toLocaleString().replace(/\s/, ',');
+			}
+		}
 	}));
 	app.set('view engine', 'handlebars');
 

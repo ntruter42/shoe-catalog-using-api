@@ -1,35 +1,40 @@
-<div class="flex row view relative shoe-catalog">
-	<div class="flex col big-gap big-padding filter-bar">
-		{{#each filters}}
-		<h4>{{@key}}</h4>
-
-		<div class="flex col gap {{@key}}-filter">
-			{{#each this}}
-			<label class="flex gap" for="{{this}}">
-				<input class="filter-checkbox" type="checkbox" name="{{this}}" id="{{this}}" value="{{this}}">
-				<span>{{this}}</span>
-			</label>
-			{{/each}}
+<div class="flex relative view shoe-catalog">
+	<form class="flex col absolute filter-bar" action="/shoes/filter" method="post">
+		<div class="b-pad filter-button-section">
+			<button class="flex pad center middle mh-2 w-1 filter-button" type="submit">Update</button>
 		</div>
 
-		{{/each}}
-	</div>
+		<div class="flex col b-gap b-pad middle filter-checkbox-section">
+			{{#each filters}}
+			<h4>{{capitalize @key}}</h4>
+
+			<div class="flex s-gap wrap center {{@key}}-filters">
+				{{#each this}}
+				<label class="flex gap pad {{#ifEqual @../key "sizes"}}w-45{{else}}w-90{{/ifEqual}}" for="{{this}}">
+					<input type="checkbox" name="{{@../key}}" id="{{this}}" value="{{this}}">
+					<span>{{this}}</span>
+				</label>
+				{{/each}}
+			</div>
+			{{/each}}
+		</div>
+	</form>
 
 	<div class="flex col catalog-section">
-		<div class="flex align big-padding gap catalog-menu">
-			<button class="flex align small-gap padding filter-button" type="button">
-				<img class="ui-icon" src="/assets/icons/equalizer-svgrepo-com.svg">
+		<div class="flex gap b-w-pad middle catalog-menu">
+			<button class="flex s-gap w-pad middle mh-2 filter-bar-button" type="button">
+				<img class="mh-1 ui-icon" src="/assets/icons/equalizer-svgrepo-com.svg">
 				<span>Filters</span>
 			</button>
 
-			<label class="flex align small-padding relative sort-category" for="sort-dropdown">
-				<select class="small-padding sort-dropdown" name="sort-dropdown">
+			<label class="flex middle s-pad relative sort-category" for="sort-dropdown">
+				<select class="w-pad h-1 mh-2 sort-dropdown" name="sort-dropdown">
 					<option value="newest">Newest</option>
 					<option value="popular">Popularity</option>
 					<option value="low-high">Price (Low - High)</option>
 					<option value="high-low">Price (High - Low)</option>
 				</select>
-				<div class="flex align">
+				<div class="flex middle">
 					<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
 					<span>Sort</span>
 					<img class="ui-icon" src="/assets/icons/bottom-svgrepo-com.svg">
@@ -37,28 +42,28 @@
 			</label>
 		</div>
 
-		<div class="flex big-gap wrap justify align big-padding view catalog-display">
+		<div class="flex b-gap wrap center b-pad catalog-display">
 			{{#each shoes}}
-			<a id="{{brand}}-{{#each variants}}{{@key}}-{{/each}}{{#each variants.sizes}}{{this}}-{{/each}}{{model}}"
-				class="flex col gap padding shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
-				<div class="padding shoe-images">
+			{{!-- use shoe-card id for search --}}
+			<a id="{{brand}}-{{model}}{{#each variants}}-{{@key}}{{#each this}}-{{size}}{{/each}}{{/each}}" class="flex col gap pad shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
+				<div class="pad shoe-images">
 					{{#each photos}}
-					<img id="{{@key}}" class="hidden shoe-img" src="{{this}}" alt="{{../brand}}">
+					<img id="{{@key}}" class="hidden shoe-img" src="{{this}}" alt="{{@key}} {{../brand}} {{../model}}">
 					{{/each}}
-					<div class="shoe-price">R{{price}}</div>
+					<div class="absolute shoe-price">R{{localize price}}</div>
 				</div>
 
-				<div class="flex col gap padding shoe-details">
+				<div class="flex col gap pad shoe-details">
 					<div><b>{{brand}}</b> {{model}}</div>
 
-					<div class="flex tiny-gap wrap align shoe-colors">
+					<div class="flex t-gap wrap middle shoe-colors">
 						{{#each variants}}
 						<span id="{{@key}}" class="shoe-color">{{@key}}</span>
 						{{/each}}
 					</div>
 
 					{{#each variants}}
-					<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
+					<div id="{{@key}}-size" class="hidden flex t-gap wrap middle shoe-color-sizes">
 						<span>Sizes:</span>
 						{{#each this}}
 						<span class="shoe-size">{{size}}</span>
@@ -72,3 +77,8 @@
 	</div>
 
 </div>
+
+<script src="/scripts/switch_shoe_photo.js" defer></script>
+<script src="/scripts/expand_filter_bar.js" defer></script>
+<script src="/scripts/filter_shoe_catalog.js" defer></script>
+<script src="/scripts/search_shoe_catalog.js" defer></script>

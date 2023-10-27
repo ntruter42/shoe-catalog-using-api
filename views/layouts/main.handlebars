@@ -9,36 +9,30 @@
 
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/style.css">
-
-	<script src="/scripts/shoe_photo.js" defer></script>
-	<script src="/scripts/shoe_photo_size.js" defer></script>
-	<script src="/scripts/catalog_search.js" defer></script>
-	<script src="/scripts/filter_bar.js" defer></script>
-	<script src="/scripts/filter_catalog.js" defer></script>
 </head>
 
-<body class="flex col align">
-	<nav class="flex row between">
-		<div class="flex start align big-padding nav-search">
-			<label class="flex align gap relative" for="search">
+<body class="flex col middle">
+	<nav class="flex between w-1">
+		<div class="flex start middle b-w-pad h-1 w-3 nav-search">
+			<label class="flex middle h-60 relative" for="search">
 				<input type="text" name="search" id="search" autocomplete="off">
 				<span>🔎</span>
 			</label>
 		</div>
 
-		<div class="flex justify padding relative nav-brand" href="/">
-			<a class="flex align relative" href="/">
-				<img src="/assets/logo/logo-color-fill.svg" alt="Ready">
+		<div class="flex center middle h-1 w-3 nav-brand" href="/">
+			<a class="flex middle h-90 relative" href="/">
+				<img src="/assets/logo/logo-color-fill.svg" alt="Logo">
 				<span>Ready</span>
 			</a>
 		</div>
 
-		<div class="flex end gap align big-padding nav-menu">
-			<a class="flex align" href="/cart">
-				<img class="ui-icon" src="/assets/icons/cart-svgrepo-com.svg" alt="">
+		<div class="flex end gap middle b-w-pad h-1 w-3 nav-menu">
+			<a class="flex middle h-60" href="/cart">
+				<img class="ui-icon" src="/assets/icons/cart-svgrepo-com.svg" alt="Cart">
 			</a>
-			<a class="flex align" href="/user">
-				<img class="ui-icon" src="/assets/icons/user-svgrepo-com.svg" alt="">
+			<a class="flex middle h-60" href="/user">
+				<img class="ui-icon" src="/assets/icons/user-svgrepo-com.svg" alt="User">
 			</a>
 		</div>
 	</nav>

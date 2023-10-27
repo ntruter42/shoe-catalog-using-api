@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-	const filterButton = document.querySelector(".filter-button");
+	const filterButton = document.querySelector(".filter-bar-button");
 	const filterBar = document.querySelector(".filter-bar");
 	const catalogSection = document.querySelector(".catalog-section");
 
