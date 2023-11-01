@@ -1,7 +1,6 @@
 window.addEventListener('load', () => {
 	const page = document.querySelector(".shoe-page");
 	const shoes = page.querySelectorAll(".shoe-card");
-	const addToCart = page.querySelector("button[id=add-to-cart]");
 
 	// Loop through each shoe card in the catalog
 	shoes.forEach(shoe => {
@@ -76,17 +75,18 @@ window.addEventListener('load', () => {
 		});
 	});
 
+	const addToCart = document.querySelector('button[id="add-to-cart"]');
 	addToCart.addEventListener("click", () => {
 		const shoe_id = page.querySelector(".shoe-card").id;
 		const selectedColor = page.querySelector(".shoe-color.highlight").id;
 		const selectedSize = page.querySelector(".shoe-size.highlight").id;
 		const selection = { color: selectedColor, size: selectedSize };
-		// console.log(selection);
+		console.log(selection);
 
 		fetch(`http://localhost:3000/shoe/${shoe_id}`, {
-			method: "GET",
+			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(selection),
+			body: JSON.stringify(selection)
 		})
 	});
 });

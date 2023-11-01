@@ -1,16 +1,12 @@
 <div class="flex relative view shoe-catalog">
-	<form class="flex col absolute filter-bar" action="/shoes/filter" method="post">
-		<div class="b-pad filter-button-section">
-			<button class="flex pad center middle mh-2 w-1 filter-button" type="submit">Update</button>
-		</div>
-
+	<div class="flex col absolute filter-bar">
 		<div class="flex col b-gap b-pad middle filter-checkbox-section">
 			{{#each filters}}
 			<h4>{{capitalize @key}}</h4>
 
 			<div class="flex s-gap wrap center {{@key}}-filters">
 				{{#each this}}
-				<label class="flex gap pad {{#ifEqual @../key "sizes"}}w-45{{else}}w-90{{/ifEqual}}" for="{{this}}">
+				<label class="flex gap pad {{#ifEqual @../key " sizes"}}w-45{{else}}w-90{{/ifEqual}}" for="{{this}}">
 					<input type="checkbox" name="{{@../key}}" id="{{this}}" value="{{this}}">
 					<span>{{this}}</span>
 				</label>
@@ -18,7 +14,7 @@
 			</div>
 			{{/each}}
 		</div>
-	</form>
+	</div>
 
 	<div class="flex col catalog-section">
 		<div class="flex gap b-w-pad middle catalog-menu">
@@ -42,10 +38,11 @@
 			</label>
 		</div>
 
-		<div class="flex b-gap wrap center b-pad catalog-display">
+		<div class="flex b-gap wrap center align b-pad catalog-display">
 			{{#each shoes}}
 			{{!-- use shoe-card id for search --}}
-			<a id="{{brand}}-{{model}}{{#each variants}}-{{@key}}{{#each this}}-{{size}}{{/each}}{{/each}}" class="flex col gap pad shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
+			<a id="{{brand}}-{{model}}-{{#each variants}}-{{@key}}-{{#each this}}-{{size}}{{/each}}{{/each}}"
+				class="flex col gap pad shoe-card" href="{{hostname}}/shoe/{{shoe_id}}">
 				<div class="pad shoe-images">
 					{{#each photos}}
 					<img id="{{@key}}" class="hidden shoe-img" src="{{this}}" alt="{{@key}} {{../brand}} {{../model}}">
@@ -54,7 +51,11 @@
 				</div>
 
 				<div class="flex col gap pad shoe-details">
-					<div><b>{{brand}}</b> {{model}}</div>
+					<div>
+						<b id="{{brand}}" class="shoe-brand">{{brand}}</b>
+						<b id="{{brand}}" class="hidden shoe-brand">{{brand}}</b>
+						<span>{{model}}</span>
+					</div>
 
 					<div class="flex t-gap wrap middle shoe-colors">
 						{{#each variants}}
@@ -62,14 +63,23 @@
 						{{/each}}
 					</div>
 
-					{{#each variants}}
-					<div id="{{@key}}-size" class="hidden flex t-gap wrap middle shoe-color-sizes">
+					{{!-- Used strictly for filter lookups --}}
+					<div class="hidden shoe-sizes">
+						{{#each variants}}
+						{{#each this}}
+						<span id="{{size}}" class="shoe-size">{{size}}</span>
+						{{/each}}
+						{{/each}}
+					</div>
+
+					{{!-- {{#each variants}}
+					<div id="{{@key}}-size" class="hidden flex t-gap wrap middle shoe-sizes">
 						<span>Sizes:</span>
 						{{#each this}}
 						<span class="shoe-size">{{size}}</span>
 						{{/each}}
 					</div>
-					{{/each}}
+					{{/each}} --}}
 				</div>
 			</a>
 			{{/each}}
