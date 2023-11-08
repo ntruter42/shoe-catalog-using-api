@@ -30,12 +30,14 @@
   --success-fg: #284;
   --info-bg: #DEF;
   --info-fg: #48C;
-  --form-border: 0.125em solid;
-  --input-border: 0.125em solid;
-  --message-border: 0.125em solid;
-  --card-border: 0.125em solid;
-  --img-border: 0.125em solid;
+  --form-border: 1px solid;
+  --input-border: 1px solid;
+  --message-border: 1px solid;
+  --card-border: 1px solid;
+  --img-border: 1px solid;
+  --cart-border: 1px solid;
   --card-border-radius: 0.5em;
+  --cart-border-radius: 0.5em;
   --nav-height: 4em;
   --menu-height: 4em;
   --filters-width: 15em;
@@ -123,6 +125,7 @@ img {
 }
 
 input[type=text],
+input[type=password],
 button,
 select {
   background: none;
@@ -163,6 +166,10 @@ select {
   position: absolute;
 }
 
+.xs-pad {
+  padding: 0.125em;
+}
+
 .s-pad {
   padding: 0.25em;
 }
@@ -171,8 +178,16 @@ select {
   padding: 0.5em;
 }
 
-.b-pad {
+.l-pad {
   padding: 1em;
+}
+
+.xl-pad {
+  padding: 2em;
+}
+
+.xs-h-pad {
+  padding-block: 0.125em;
 }
 
 .s-h-pad {
@@ -183,8 +198,16 @@ select {
   padding-block: 0.5em;
 }
 
-.b-h-pad {
+.l-h-pad {
   padding-block: 1em;
+}
+
+.xl-h-pad {
+  padding-block: 2em;
+}
+
+.xs-w-pad {
+  padding-inline: 0.125em;
 }
 
 .s-w-pad {
@@ -195,19 +218,27 @@ select {
   padding-inline: 0.5em;
 }
 
-.b-w-pad {
+.l-w-pad {
   padding-inline: 1em;
+}
+
+.xl-w-pad {
+  padding-inline: 2em;
 }
 
 .c-text {
   text-align: center;
 }
 
+.r-text {
+  text-align: end;
+}
+
 .s-text {
   font-size: 0.75em;
 }
 
-.b-text {
+.l-text {
   font-size: 1.25em;
 }
 
@@ -228,7 +259,7 @@ select {
   flex-wrap: wrap;
 }
 
-.flex.t-gap {
+.flex.xs-gap {
   gap: 0.125em;
 }
 
@@ -240,8 +271,12 @@ select {
   gap: 0.5em;
 }
 
-.flex.b-gap {
+.flex.l-gap {
   gap: 1em;
+}
+
+.flex.xl-gap {
+  gap: 2em;
 }
 
 .flex.center {
@@ -669,7 +704,7 @@ nav {
 
 #search {
   background: linear-gradient(180deg, transparent 80%, var(--accent-2) 80%);
-  color: none;
+  color: transparent;
   border-width: 2px;
   border-color: var(--accent-1);
   border-radius: 2em;
@@ -719,6 +754,16 @@ nav {
   top: 1em;
   right: -1.5em;
   transform: rotate(55deg);
+}
+
+.login-form, .register-form {
+  background: var(--primary-bg);
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 0 2em var(--shadow-mid);
+}
+
+.signup-link, .login-link {
+  color: var(--accent-1);
 }
 
 .filter-bar {
@@ -934,6 +979,33 @@ nav {
   border-color: var(--highlight-bg);
 }
 
+.cart {
+  background: var(--transparent-light);
+  border-collapse: collapse;
+  border-radius: var(--cart-border-radius);
+  width: 100%;
+}
+
+tr:nth-child(even) {
+  background-color: var(--primary-bg);
+}
+
+.cart button {
+  border: none;
+  border-radius: 50%;
+  height: 2em;
+  aspect-ratio: 1;
+}
+
+.cart th {
+  height: 2em;
+}
+
+.cart td:not(:last-child),
+.cart th:not(:last-child) {
+  border-right: 1px solid var(--accent-1);
+}
+
 .message {
   background: var(--secondary-bg);
   color: var(--secondary-fg);
@@ -1022,6 +1094,10 @@ nav {
 
 .invisible {
   opacity: 0;
+}
+
+.inactive {
+  pointer-events: none;
 }
 
 .hidden {

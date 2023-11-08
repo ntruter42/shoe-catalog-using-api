@@ -13,26 +13,29 @@
 
 <body class="flex col middle">
 	<nav class="flex between w-1">
-		<div class="flex start middle b-w-pad h-1 w-3 nav-search">
-			<label class="flex middle h-60 relative" for="search">
+		<div class="flex start middle l-w-pad h-1 w-3 nav-search">
+			<label class="flex middle h-60 relative" for="search" title="Search">
 				<input type="text" name="search" id="search" autocomplete="off">
 				<span>🔎</span>
 			</label>
 		</div>
 
 		<div class="flex center middle h-1 w-3 nav-brand" href="/">
-			<a class="flex middle h-90 relative" href="/">
+			<a class="flex middle h-90 relative" href="/" title="Ready SA | Official Website">
 				<img src="/assets/logo/logo-color-fill.svg" alt="Logo">
 				<span>Ready</span>
 			</a>
 		</div>
 
-		<div class="flex end gap middle b-w-pad h-1 w-3 nav-menu">
+		<div class="flex end gap middle l-w-pad h-1 w-3 nav-menu">
 			<a class="flex middle h-60" href="/cart">
-				<img class="ui-icon" src="/assets/icons/cart-svgrepo-com.svg" alt="Cart">
+				<img class="ui-icon" src="/assets/icons/cart-svgrepo-com.svg" alt="Cart" title="Cart">
 			</a>
 			<a class="flex middle h-60" href="/user">
-				<img class="ui-icon" src="/assets/icons/user-svgrepo-com.svg" alt="User">
+				<img class="ui-icon" src="/assets/icons/user-svgrepo-com.svg" alt="User" title="{{user.username}}">
+			</a>
+			<a class="flex middle h-60" href="/logout">
+				<img class="ui-icon" src="/assets/icons/cross-svgrepo-com.svg" alt="Logout" title="Logout">
 			</a>
 		</div>
 	</nav>

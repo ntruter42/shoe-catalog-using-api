@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
 				// }
 			}
 
-			color.addEventListener("click", (event) => {
+			color.addEventListener("mouseover", (event) => {
 				event.preventDefault();
 
 				colors.forEach(option => {

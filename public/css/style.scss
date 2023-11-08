@@ -38,13 +38,15 @@
 	--info-bg: #DEF;
 	--info-fg: #48C;
 
-	--form-border: 0.125em solid;
-	--input-border: 0.125em solid;
-	--message-border: 0.125em solid;
-	--card-border: 0.125em solid;
-	--img-border: 0.125em solid;
+	--form-border: 1px solid;
+	--input-border: 1px solid;
+	--message-border: 1px solid;
+	--card-border: 1px solid;
+	--img-border: 1px solid;
+	--cart-border: 1px solid;
 
 	--card-border-radius: 0.5em;
+	--cart-border-radius: 0.5em;
 
 	--nav-height: 4em;
 	--menu-height: 4em;
@@ -115,6 +117,7 @@ img {
 }
 
 input[type="text"],
+input[type="password"],
 button,
 select {
 	background: none;
@@ -158,14 +161,18 @@ select {
 }
 
 $pad-sizes: (
+	"xs-",
 	"s-",
 	"",
-	"b-"
+	"l-",
+	"xl-"
 );
 $pad-values: (
+	0.125,
 	0.25,
 	0.5,
-	1
+	1,
+	2
 );
 $pad-dimensions: (
 	"",
@@ -194,11 +201,15 @@ $pad-properties: (
 	text-align: center;
 }
 
+.r-text {
+	text-align: end;
+}
+
 .s-text {
 	font-size: 0.75em;
 }
 
-.b-text {
+.l-text {
 	font-size: 1.25em;
 }
 
@@ -220,16 +231,18 @@ $pad-properties: (
 }
 
 $gap-sizes: (
-	"t-",
+	"xs-",
 	"s-",
 	"",
-	"b-"
+	"l-",
+	"xl-"
 );
 $gap-values: (
 	0.125,
 	0.25,
 	0.5,
-	1
+	1,
+	2
 );
 
 @for $i from 1 through length($gap-sizes) {
@@ -328,7 +341,7 @@ nav {
 
 #search {
 	background: linear-gradient(180deg, transparent 80%, var(--accent-2) 80%);
-	color: none;
+	color: transparent;
 	border-width: 2px;
 	border-color: var(--accent-1);
 	border-radius: 2em;
@@ -386,6 +399,18 @@ nav {
 	right: -1.5em;
 
 	transform: rotate(55deg);
+}
+
+// ==================== LOGIN & REGISTRATION ==================== //
+
+.login-form, .register-form {
+	background: var(--primary-bg);
+	border-radius: var(--card-border-radius);
+	box-shadow: 0 0 2em var(--shadow-mid);
+}
+
+.signup-link, .login-link {
+	color: var(--accent-1);
 }
 
 // ==================== SHOE CATALOG ==================== //
@@ -648,6 +673,35 @@ nav {
 	border-color: var(--highlight-bg);
 }
 
+// ==================== CART ==================== //
+
+.cart {
+	background: var(--transparent-light);
+	border-collapse: collapse;
+	border-radius: var(--cart-border-radius);
+	width: 100%;
+}
+
+tr:nth-child(even) {
+	background-color: var(--primary-bg);
+}
+
+.cart button {
+	border: none;
+	border-radius: 50%;
+	height: 2em;
+	aspect-ratio: 1;
+}
+
+.cart th {
+	height: 2em;
+}
+
+.cart td:not(:last-child),
+.cart th:not(:last-child) {
+	border-right: 1px solid var(--accent-1);
+}
+
 // ==================== MESSAGES ==================== //
 
 .message {
@@ -748,6 +802,10 @@ nav {
 
 .invisible {
 	opacity: 0;
+}
+
+.inactive {
+	pointer-events: none;
 }
 
 .hidden {

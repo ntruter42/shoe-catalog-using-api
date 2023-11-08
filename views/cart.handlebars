@@ -1,0 +1,39 @@
+<div class="flex relative view shoe-cart">
+	<div class="flex col xl-gap middle xl-pad w-1">
+		<h4>Shopping Cart</h4>
+
+		<table class="cart">
+			<tr class="">
+				<th class="w-pad">Shoe</th>
+				<th class="w-pad">Color</th>
+				<th class="w-pad">Size</th>
+				<th class="w-pad">Price</th>
+				<th class="w-pad">Qty</th>
+				<th class="w-pad">Total</th>
+			</tr>
+			{{#each cart}}
+			<tr>
+				<form method="post">
+					<td class="flex gap middle w-pad {{#if @last}}total{{/if}}">
+						{{#if @last}}{{else}}
+						<button type="submit" formaction="/cart/{{user.user_id}}/remove/{{item_id}}">✕</button>
+						{{/if}}
+						<span><b>{{brand}}</b> {{model}}</span>
+					</td>
+					<td class="w-pad">{{color}}</td>
+					<td class="c-text w-pad">{{size}}</td>
+					<td class="c-text w-pad">{{price}}</td>
+					<td class="flex gap middle between c-text w-pad">
+						<button class="{{#if @last}}inactive invisible{{/if}}" type="submit"
+							formaction="/cart/{{user.user_id}}/sub/{{item_id}}">-</button>
+						<span class="w-1">{{item_count}}</span>
+						<button class="{{#if @last}}inactive invisible{{/if}}" type="submit"
+							formaction="/cart/{{user.user_id}}/add/{{item_id}}">+</button>
+					</td>
+					<td class="r-text w-pad">{{total}}</td>
+				</form>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+</div>

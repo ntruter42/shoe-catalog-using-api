@@ -1,0 +1,22 @@
+<div class="flex col center middle view login-page">
+	<form class="flex col xl-gap xl-pad middle login-form" action="/login" method="post">
+		{{#if message.text}}
+		<div class="{{message.type}} message">{{message.text}}</div>
+		{{/if}}
+
+		<label class="flex col gap c-text" for="username">
+			<span>Username</span>
+			<input class="c-text" type="text" name="username" autocomplete="off" autofocus required>
+		</label>
+
+		<label class="flex col gap c-text" for="password">
+			<span>Password</span>
+			<input class="c-text" type="password" name="password" required>
+		</label>
+
+		<button type="submit">LOGIN</button>
+		<div>
+			<span>Don't have an account?</span> <a class="signup-link" href="/register">Create an account</a>
+		</div>
+	</form>
+</div>

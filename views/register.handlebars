@@ -1,0 +1,32 @@
+<div class="flex col center middle view register-page">
+	<form class="flex col xl-gap xl-pad middle register-form" action="/REGISTER" method="post">
+		{{#if message.text}}
+		<div class="{{message.type}} message">{{message.text}}</div>
+		{{/if}}
+
+		<label class="flex col gap c-text" for="username">
+			<span>Username</span>
+			<input class="c-text" type="text" name="username" autocomplete="off" autofocus required>
+		</label>
+
+		<label class="flex col gap c-text" for="full_name">
+			<span>Full name</span>
+			<input class="c-text" type="text" name="full_name" autocomplete="off" required>
+		</label>
+
+		<label class="flex col gap c-text" for="password">
+			<span>Password</span>
+			<input class="c-text" type="password" name="password" required>
+		</label>
+
+		<label class="flex col gap c-text" for="confirm">
+			<span>Confirm Password</span>
+			<input class="c-text" type="password" name="confirm" required>
+		</label>
+
+		<button type="submit">REGISTER</button>
+		<div>
+			<span>Already have an account?</span> <a class="login-link" href="/login">Sign in</a>
+		</div>
+	</form>
+</div>
