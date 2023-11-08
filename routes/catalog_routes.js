@@ -104,7 +104,9 @@ router.post(`/login`, async (req, res) => {
 router.post(`/register`, async (req, res) => {
 	const response = (await axios.post(`${process.env.AUTH_API_URI}/api/auth/register`, {
 		username: req.body.username,
-		password: req.body.password
+		password: req.body.password,
+		full_name: req.body.full_name,
+		confirm: req.body.confirm
 	})).data;
 	const user_id = response.user_id;
 
