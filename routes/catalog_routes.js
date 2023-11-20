@@ -1,108 +1,114 @@
 import { Router } from "express";
 import axios from "axios";
+import auth_services from "../services/auth_services.js";
 
 const router = Router();
+const auth = auth_services();
 
-router.get(`/`, async (req, res) => {
-	if (req.session.user_id) {
-		const data = (await axios.get(`${process.env.SHOES_API_URI}/api/shoes`)).data;
-		const shoes = data.shoes;
-		const filters = data.filters;
+router.get("/", auth.verifyToken, async (req, res) => {
+	const nav = ["search", "brand", "menu"];
 
-		res.render(`catalog`, {
-			page: `Shop`,
-			shoes,
-			filters,
-			hostname: req.hostname
-		});
-	} else {
-		res.redirect(`/login`);
-	}
+	const response = (await axios.get(`${process.env.SHOES_API_URI}/shoes`));
+	const shoes = response.data.shoes;
+	const filters = response.data.filters;
+
+	res.render("catalog", {
+		page: "Shop",
+		nav,
+		shoes,
+		filters,
+		hostname: req.hostname
+	});
 });
 
-router.get(`/shoe/:shoe_id`, async (req, res) => {
+router.get("/shoe/:shoe_id", auth.verifyToken, async (req, res) => {
 	const shoe_id = req.params.shoe_id;
-	const shoe = (await axios.get(`${process.env.SHOES_API_URI}/api/shoes?shoe_id=${shoe_id}`)).data.shoes[0];
+	const shoe = (await axios.get(`${process.env.SHOES_API_URI}/shoes?shoe_id=${shoe_id}`)).data.shoes[0];
 
-	console.log(shoe);
-	res.render(`shoe`, {
+	res.render("shoe", {
 		page: `${shoe.brand} ${shoe.brand}`,
 		shoe
 	});
 });
 
-router.post(`/shoe/:shoe_id`, async (req, res) => {
+router.post("/shoe/:shoe_id", auth.verifyToken, async (req, res) => {
 	const shoe_id = req.params.shoe_id;
 	const color = req.body.color;
 	const size = req.body.size;
 
-	const item_id = await axios.get(`${process.env.SHOES_API_URI}/api/shoes/item_id/${shoe_id}/${color}/${size}`);
-	const shoe = (await axios.post(`${process.env.SHOES_API_URI}/api/cart/1000/add?item_id=${item_id}`));
+	const item_id = await axios.get(`${process.env.SHOES_API_URI}/shoes/item_id/${shoe_id}/${color}/${size}`);
+	const shoe = await axios.post(`${process.env.SHOES_API_URI}/cart/1000/add?item_id=${item_id}`);
 
-	res.render(`shoe`, {
+	res.render("shoe", {
 		page: `${shoe.brand} ${shoe.brand}`,
 		shoe
 	});
 });
 
-router.get(`/cart`, async (req, res) => {
-	const data = (await axios.get(`${process.env.SHOES_API_URI}/api/cart/${req.session.user_id}`)).data;
+router.get("/cart", auth.verifyToken, async (req, res) => {
+	const data = (await axios.get(`${process.env.SHOES_API_URI}/cart/${req.session.user_id}`)).data;
 	const cart = data.cart;
 
-	res.render(`cart`, {
-		page: `Cart`,
+	res.render("cart", {
+		page: "Cart",
 		cart
 	});
 });
 
-router.get(`/login`, async (req, res) => {
+router.get("/login", async (req, res) => {
+	const nav = ["brand"];
+
 	const message = {
-		text: req.flash('error')[0] || null,
-		type: `error`
+		text: req.flash('error')[0] || undefined,
+		type: "error"
 	};
 
-	res.render(`login`, {
-		page: `Login`,
-		message: message.text ? message : null
+	res.render("login", {
+		page: "Login",
+		nav,
+		message
 	});
 });
 
-router.get(`/register`, async (req, res) => {
-	const message = {
-		text: req.flash('error')[0] || null,
-		type: `error`
-	};
+router.post("/login", async (req, res) => {
+	try {
+		const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/login`, {
+			username: req.body.username,
+			password: req.body.password
+		})).data;
 
-	res.render(`register`, {
-		page: `Sign Up`,
-		message: message.text ? message : null
-	});
-});
-
-router.get(`/logout`, async (req, res) => {
-	req.session.destroy(() => {
-		res.redirect('/login');
-	});
-});
-
-router.post(`/login`, async (req, res) => {
-	const response = (await axios.post(`${process.env.AUTH_API_URI}/api/auth/login`, {
-		username: req.body.username,
-		password: req.body.password
-	})).data
-	const user_id = response.user_id;
-
-	if (!user_id) {
-		req.flash(`error`, `${response.error}`);
-		res.redirect(`/login`);
-	} else {
-		req.session.user_id = user_id;
-		res.redirect(`/`);
+		res.cookie(`last_user_id`, response.user.user_id, { maxAge: 1000 * 60 * 60 * 24 * 7 });
+		res.cookie(`jwt_${response.user.user_id}`, response.token, { maxAge: 1000 * 60 * 60 });
+		res.redirect("/");
+	} catch (error) {
+		if (error.response) {
+			console.error(error.response.data);
+			req.flash('error', error.response.data.message);
+		} else {
+			console.error(error);
+			req.flash('error', error);
+		}
+		res.redirect("/login");
 	}
 });
 
-router.post(`/register`, async (req, res) => {
-	const response = (await axios.post(`${process.env.AUTH_API_URI}/api/auth/register`, {
+router.get("/register", async (req, res) => {
+	const nav = ["brand"];
+
+	const message = {
+		text: req.flash('error')[0] || undefined,
+		type: "error"
+	};
+
+	res.render("register", {
+		page: "Register",
+		nav,
+		message
+	});
+});
+
+router.post("/register", async (req, res) => {
+	const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/register`, {
 		username: req.body.username,
 		password: req.body.password,
 		full_name: req.body.full_name,
@@ -111,15 +117,22 @@ router.post(`/register`, async (req, res) => {
 	const user_id = response.user_id;
 
 	if (req.body.password !== req.body.confirm) {
-		req.flash(`error`, `Passwords don't match`);
-		res.redirect(`/register`);
+		req.flash("error", "Passwords don't match");
+		res.redirect("/register");
 	} else if (!user_id) {
-		req.flash(`error`, `${response.error}`);
-		res.redirect(`/register`);
+		req.flash("error", `${response.error}`);
+		res.redirect("/register");
 	} else {
-		req.session.user_id = user_id;
-		res.redirect(`/`);
+		res.redirect("/");
 	}
+});
+
+router.get("/logout", async (req, res) => {
+	req.session.destroy(() => {
+		res.clearCookie(`jwt_${req.cookies[`last_user_id`]}`);
+		res.clearCookie(`last_user_id`);
+		res.redirect("/login");
+	});
 });
 
 export default router;

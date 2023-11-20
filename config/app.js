@@ -2,15 +2,17 @@ import express from "express";
 import cors from "cors";
 import { engine } from "express-handlebars";
 import session from "express-session";
-import flash from "express-flash";
+import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import flash from "express-flash";
 import "dotenv/config";
 
 export default function App() {
 	const app = express();
 
-	app.use(cors());
 	app.use(express.static('public'));
+	app.use(cors());
+	app.use(cookieParser());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
 	app.use(flash());
@@ -18,13 +20,23 @@ export default function App() {
 		secret: process.env.SECRET_KEY,
 		resave: false,
 		saveUninitialized: false,
-		cookie: {}
+		cookie: {
+			secure: false,
+			sameSite: 'None'
+		}
 	}));
 	app.engine('handlebars', engine({
 		defaultLayout: 'main',
 		viewPath: './views',
 		layoutsDir: './views/layouts',
 		helpers: {
+			showNav: function (section, shownSections, options) {
+				if (!shownSections || shownSections.includes(section)) {
+					return options.fn(this);
+				} else {
+					return options.inverse(this);
+				}
+			},
 			ifPosition: function (position, options) {
 				if (position === options.hash.position) {
 					return options.fn(this);

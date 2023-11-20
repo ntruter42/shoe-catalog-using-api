@@ -1,5 +1,7 @@
-<div class="flex col center middle view register-page">
-	<form class="flex col xl-gap xl-pad middle register-form" action="/REGISTER" method="post">
+<div class="flex col l-gap center middle view register-page">
+	<b class="xxl-text">{{page}}</b>
+
+	<form class="flex col xl-gap xl-pad middle register-form" action="/register" method="post">
 		{{#if message.text}}
 		<div class="{{message.type}} message">{{message.text}}</div>
 		{{/if}}
@@ -24,9 +26,11 @@
 			<input class="c-text" type="password" name="confirm" required>
 		</label>
 
-		<button type="submit">REGISTER</button>
+		<button class="b-btn" type="submit">REGISTER</button>
 		<div>
-			<span>Already have an account?</span> <a class="login-link" href="/login">Sign in</a>
+			<span>Already have an account?</span> <a class="link" href="/login">Login</a>
 		</div>
 	</form>
+
+	<b class="xxl-text invisible">...</b>
 </div>

@@ -1,4 +1,6 @@
-<div class="flex col center middle view login-page">
+<div class="flex col l-gap center middle view login-page">
+	<b class="xxl-text">{{page}}</b>
+
 	<form class="flex col xl-gap xl-pad middle login-form" action="/login" method="post">
 		{{#if message.text}}
 		<div class="{{message.type}} message">{{message.text}}</div>
@@ -12,11 +14,14 @@
 		<label class="flex col gap c-text" for="password">
 			<span>Password</span>
 			<input class="c-text" type="password" name="password" required>
+			<span><a class="link" href="/reset">Forgot password?</a></span>
 		</label>
 
-		<button type="submit">LOGIN</button>
+		<button class="b-btn" type="submit">LOGIN</button>
 		<div>
-			<span>Don't have an account?</span> <a class="signup-link" href="/register">Create an account</a>
+			<span>Don't have an account?</span> <a class="link" href="/register">Register</a>
 		</div>
 	</form>
+
+	<b class="xxl-text invisible">...</b>
 </div>

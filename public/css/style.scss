@@ -120,7 +120,7 @@ input[type="text"],
 input[type="password"],
 button,
 select {
-	background: none;
+	background: var(--primary-bg);
 	border: 1px solid;
 	padding: 0.25em 0.5em;
 }
@@ -131,6 +131,19 @@ select {
 
 	cursor: pointer;
 	appearance: none;
+}
+
+.b-btn {
+	box-shadow: 0 0.125em;
+}
+
+.b-btn:hover {
+	filter: brightness(0.875);
+}
+
+.b-btn:active {
+	box-shadow: none;
+	filter: brightness(0.75);
 }
 
 .ui-icon {
@@ -146,6 +159,10 @@ select {
 	height: calc(100% - var(--nav-height));
 	width: 100%;
 	max-width: var(--page-width);
+}
+
+.scroll {
+	overflow: auto;
 }
 
 .relative {
@@ -205,12 +222,30 @@ $pad-properties: (
 	text-align: end;
 }
 
-.s-text {
-	font-size: 0.75em;
-}
+$text-sizes: (
+	"xxs",
+	"xs",
+	"s",
+	"l",
+	"xl",
+	"xxl"
+);
+$text-values: (
+	0.25,
+	0.5,
+	0.75,
+	1.5,
+	2,
+	3
+);
 
-.l-text {
-	font-size: 1.25em;
+@for $i from 1 through length($text-sizes) {
+	$text-value: nth($text-values, $i);
+	$text-prefix: nth($text-sizes, $i);
+
+	.#{$text-prefix}-text {
+		font-size: #{$text-value}em;
+	}
 }
 
 .flex {
@@ -403,13 +438,14 @@ nav {
 
 // ==================== LOGIN & REGISTRATION ==================== //
 
-.login-form, .register-form {
+.login-form,
+.register-form {
 	background: var(--primary-bg);
 	border-radius: var(--card-border-radius);
 	box-shadow: 0 0 2em var(--shadow-mid);
 }
 
-.signup-link, .login-link {
+.link {
 	color: var(--accent-1);
 }
 
