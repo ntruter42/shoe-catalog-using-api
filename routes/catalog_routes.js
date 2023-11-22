@@ -11,7 +11,6 @@ router.get("/", auth.verifyToken, async (req, res) => {
 	const response = (await axios.get(`${process.env.SHOES_API_URI}/shoes`));
 	const shoes = response.data.shoes;
 	const filters = response.data.filters;
-
 	res.render("catalog", {
 		page: "Shop",
 		nav,
@@ -72,13 +71,17 @@ router.get("/login", async (req, res) => {
 
 router.post("/login", async (req, res) => {
 	try {
-		const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/login`, {
-			username: req.body.username,
-			password: req.body.password
+		const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/user`, {
+			username: req.body.username
 		})).data;
 
-		res.cookie(`last_user_id`, response.user.user_id, { maxAge: 1000 * 60 * 60 * 24 * 7 });
-		res.cookie(`jwt_${response.user.user_id}`, response.token, { maxAge: 1000 * 60 * 60 });
+		const user = auth.decodeToken(response.token);
+		if (!(await auth.comparePasswords(req.body.password, user.password))) {
+			throw new Error("The username or password entered is incorrect");
+		}
+
+		res.cookie(`last_user_id`, user.user_id, { maxAge: 1000 * 60 * 60 * 24 * 7 });
+		res.cookie(`jwt_${user.user_id}`, response.token, { maxAge: 1000 * 60 * 60 });
 		res.redirect("/");
 	} catch (error) {
 		if (error.response) {
@@ -86,7 +89,7 @@ router.post("/login", async (req, res) => {
 			req.flash('error', error.response.data.message);
 		} else {
 			console.error(error);
-			req.flash('error', error);
+			req.flash('error', error.message);
 		}
 		res.redirect("/login");
 	}
@@ -108,22 +111,35 @@ router.get("/register", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-	const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/register`, {
-		username: req.body.username,
-		password: req.body.password,
-		full_name: req.body.full_name,
-		confirm: req.body.confirm
-	})).data;
-	const user_id = response.user_id;
+	try {
+		if (req.body.password !== req.body.confirm) {
+			throw new Error("Passwords do not match");
+		}
 
-	if (req.body.password !== req.body.confirm) {
-		req.flash("error", "Passwords don't match");
+		const response = (await axios.post(`${process.env.AUTH_API_URI}/auth/register`, {
+			username: req.body.username,
+			full_name: req.body.full_name,
+			password: await auth.hashPassword(req.body.password)
+		})).data;
+
+		if (response.status === "Error") {
+			throw new Error(response.message);
+		} else {
+			req.flash('success', "Login in to your new account");
+			res.redirect("/login");
+		}
+	} catch (error) {
+		if (error.response) {
+			console.error(error.response.data);
+			req.flash('error', error.response.data.message);
+		} else if (error.message) {
+			console.error(error.message);
+			req.flash('error', error.message);
+		} else {
+			console.error(error);
+			req.flash('error', error);
+		}
 		res.redirect("/register");
-	} else if (!user_id) {
-		req.flash("error", `${response.error}`);
-		res.redirect("/register");
-	} else {
-		res.redirect("/");
 	}
 });
 

@@ -81,7 +81,6 @@ window.addEventListener('load', () => {
 		const selectedColor = page.querySelector(".shoe-color.highlight").id;
 		const selectedSize = page.querySelector(".shoe-size.highlight").id;
 		const selection = { color: selectedColor, size: selectedSize };
-		console.log(selection);
 
 		fetch(`http://localhost:3000/shoe/${shoe_id}`, {
 			method: "POST",

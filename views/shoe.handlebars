@@ -1,26 +1,26 @@
-<div class="flex row view relative shoe-page">
+<div class="flex relative view shoe-page">
 
-	<div class="flex col gap justify align view container">
+	<div class="flex col center middle w-1">
 		{{#with shoe}}
-		<div id="{{shoe_id}}" style="transform: scale(1.75);" class="flex col gap padding shoe-card">
-			<div class="padding shoe-images">
+		<div id="{{shoe_id}}" style="transform: scale(1.75);" class="flex col gap pad shoe-card">
+			<div class="pad shoe-images">
 				{{#each photos}}
 				<img id="{{@key}}" class="hidden shoe-img" src="{{this}}" alt="{{../brand}}">
 				{{/each}}
 				<div class="shoe-price">R{{price}}</div>
 			</div>
 
-			<div class="flex col gap padding shoe-details">
+			<div class="flex col gap pad shoe-details">
 				<div><b>{{brand}}</b> {{model}}</div>
 
-				<div class="flex tiny-gap wrap align shoe-colors">
+				<div class="flex xs-gap wrap middle shoe-colors">
 					{{#each variants}}
 					<span id="{{@key}}" class="shoe-color">{{@key}}</span>
 					{{/each}}
 				</div>
 
 				{{#each variants}}
-				<div id="{{@key}}-size" class="hidden flex tiny-gap wrap align shoe-color-sizes">
+				<div id="{{@key}}-size" class="hidden flex xs-gap wrap middle shoe-color-sizes">
 					<span>Sizes:</span>
 					{{#each this}}
 					<span id="{{size}}" class="shoe-size">{{size}}</span>

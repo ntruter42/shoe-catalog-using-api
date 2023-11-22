@@ -1,5 +1,6 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export default function auth() {
 	const hashPassword = async function (password) {
@@ -8,8 +9,8 @@ export default function auth() {
 		return password_hash;
 	};
 
-	const verifyPassword = async function (password, password_hash) {
-		return await bcrypt.compare(password, password_hash);
+	const comparePasswords = async function (password_hash1, password_hash2) {
+		return await bcrypt.compare(password_hash1, password_hash2);
 	};
 
 	const verifyToken = async function (req, res, next) {
@@ -37,14 +38,20 @@ export default function auth() {
 
 			next();
 		} catch (error) {
-			console.log(error.message);
+			console.error(error.message);
 			res.redirect('/login');
 		}
 	};
 
+	const decodeToken = function (token) {
+		const decoded_data = jwt.verify(token, process.env.AUTH_KEY);
+		return decoded_data;
+	}
+
 	return {
 		hashPassword,
-		verifyPassword,
-		verifyToken
+		comparePasswords,
+		verifyToken,
+		decodeToken
 	}
 }

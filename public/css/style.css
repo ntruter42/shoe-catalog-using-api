@@ -794,6 +794,7 @@ nav {
   background: var(--primary-bg);
   border-radius: var(--card-border-radius);
   box-shadow: 0 0 2em var(--shadow-mid);
+  max-width: 386px;
 }
 
 .link {
@@ -1049,6 +1050,7 @@ tr:nth-child(even) {
   width: fit-content;
   max-width: 100%;
   padding: 0.5em 1em;
+  text-align: center;
   overflow: hidden;
 }
 
